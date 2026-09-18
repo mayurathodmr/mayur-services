@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#050509">
+<meta name="description" content="Mayur Services - Premium Digital, Creative & Technology Services">
+<title>MAYUR SERVICES — Digital • Creative • Tech</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#050509;color:#fff;overflow-x:hidden;min-height:100vh;
+}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+::selection{background:#fff;color:#000}
+
+/* BACKGROUND */
+body:before{
+ content:"";position:fixed;inset:0;z-index:-5;
+ background:
+ radial-gradient(circle at 15% 15%,rgba(130,70,255,.20),transparent 28%),
+ radial-gradient(circle at 85% 20%,rgba(0,220,255,.13),transparent 28%),
+ radial-gradient(circle at 50% 85%,rgba(255,40,120,.10),transparent 30%),
+ #050509;
+}
+.grid{
+ position:fixed;inset:0;z-index:-4;pointer-events:none;opacity:.18;
+ background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+ background-size:50px 50px;
+ mask-image:linear-gradient(to bottom,black,transparent 90%);
+}
+.orb{position:fixed;border-radius:50%;filter:blur(80px);z-index:-3;pointer-events:none;animation:orb 10s ease-in-out infinite alternate}
+.o1{width:260px;height:260px;background:#6d35ff;left:-120px;top:120px;opacity:.25}
+.o2{width:220px;height:220px;background:#00d9ff;right:-100px;top:430px;opacity:.16;animation-delay:2s}
+.o3{width:250px;height:250px;background:#ff257d;left:35%;bottom:-150px;opacity:.12;animation-delay:4s}
+@keyframes orb{to{transform:translate(50px,-40px) scale(1.15)}}
+
+/* PARTICLES */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:-2;overflow:hidden}
+.p{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.35;animation:float linear infinite}
+@keyframes float{from{transform:translateY(110vh);opacity:0}15%{opacity:.45}85%{opacity:.45}to{transform:translateY(-10vh);opacity:0}}
+
+/* NAV */
+.nav{
+ position:fixed;top:15px;left:50%;transform:translateX(-50%);
+ width:min(1180px,calc(100% - 28px));height:66px;
+ display:flex;align-items:center;justify-content:space-between;
+ padding:8px 12px 8px 20px;
+ border:1px solid rgba(255,255,255,.11);
+ border-radius:22px;background:rgba(10,10,17,.72);
+ backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+ box-shadow:0 15px 50px rgba(0,0,0,.35);
+ z-index:1000;
+}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{
+ width:43px;height:43px;border-radius:14px;
+ display:grid;place-items:center;
+ background:linear-gradient(135deg,#fff,#8f6cff 45%,#00dcff);
+ color:#050509;font-weight:1000;font-size:17px;
+ box-shadow:0 0 30px rgba(122,93,255,.4);
+ position:relative;overflow:hidden;
+}
+.logo:after{
+ content:"";position:absolute;width:80px;height:20px;
+ background:rgba(255,255,255,.7);transform:rotate(-45deg) translateX(-70px);
+ animation:shine 3s infinite;
+}
+@keyframes shine{55%,100%{transform:rotate(-45deg) translateX(100px)}}
+.brandText strong{display:block;font-size:15px;letter-spacing:1.4px}
+.brandText span{font-size:8px;color:#9696a5;letter-spacing:2.3px}
+.navlinks{display:flex;gap:5px}
+.navlinks a{
+ padding:11px 14px;border-radius:12px;color:#a8a8b7;font-size:13px;
+ transition:.25s;
+}
+.navlinks a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.navbtn{
+ padding:12px 18px;border-radius:13px;border:1px solid rgba(255,255,255,.15);
+ background:linear-gradient(135deg,#fff,#c8c4ff);color:#07070b;
+ font-weight:800;font-size:12px;cursor:pointer;box-shadow:0 8px 25px rgba(255,255,255,.12);
+}
+.menu{display:none;background:none;border:0;color:white;font-size:25px}
+
+/* HERO */
+.hero{
+ min-height:100vh;display:flex;align-items:center;
+ max-width:1180px;margin:auto;padding:145px 25px 90px;
+ position:relative;
+}
+.heroGrid{width:100%;display:grid;grid-template-columns:1.12fr .88fr;gap:65px;align-items:center}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.tag{
+ padding:7px 11px;border:1px solid rgba(255,255,255,.13);
+ border-radius:999px;background:rgba(255,255,255,.045);
+ color:#aaaab7;font-size:9px;letter-spacing:1.5px;font-weight:800;
+}
+.tag.live{color:#fff;border-color:rgba(0,230,255,.25)}
+.tag.live:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#45f3d0;margin-right:6px;box-shadow:0 0 10px #45f3d0}
+.hero h1{
+ font-size:clamp(48px,7vw,88px);line-height:.91;letter-spacing:-4px;
+ max-width:800px;margin-bottom:25px;font-weight:950;
+}
+.gradient{
+ background:linear-gradient(90deg,#fff 0%,#b9a8ff 38%,#68eaff 72%,#fff);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
+ background-size:200%;animation:gradient 5s linear infinite;
+}
+@keyframes gradient{to{background-position:200% center}}
+.hero p{color:#a4a4b1;max-width:650px;font-size:16px;line-height:1.75}
+.ctas{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.primary,.secondary{
+ padding:15px 21px;border-radius:15px;font-size:13px;font-weight:850;
+ display:inline-flex;align-items:center;gap:9px;transition:.25s;
+}
+.primary{
+ color:#06060a;background:#fff;box-shadow:0 12px 40px rgba(255,255,255,.13);
+}
+.secondary{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.045);color:#ddd}
+.primary:hover,.secondary:hover{transform:translateY(-3px)}
+.miniStats{display:flex;gap:30px;margin-top:38px}
+.stat strong{display:block;font-size:22px}
+.stat span{font-size:9px;color:#777783;letter-spacing:1.4px;text-transform:uppercase}
+
+/* HERO CARD */
+.heroCard{
+ min-height:450px;border:1px solid rgba(255,255,255,.12);border-radius:32px;
+ background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
+ backdrop-filter:blur(25px);padding:18px;position:relative;overflow:hidden;
+ box-shadow:0 30px 100px rgba(0,0,0,.45);
+ transform:perspective(1000px) rotateY(-4deg);
+}
+.heroCard:before{
+ content:"";position:absolute;width:300px;height:300px;border-radius:50%;
+ background:#704bff;filter:blur(90px);opacity:.18;top:-120px;right:-100px;
+}
+.cardTop{display:flex;justify-content:space-between;align-items:center}
+.cardLabel{font-size:10px;letter-spacing:2px;color:#888895}
+.verified{font-size:9px;color:#6ef6d2;border:1px solid rgba(110,246,210,.2);padding:7px 9px;border-radius:99px}
+.profile{
+ margin-top:35px;border-radius:25px;padding:26px;
+ min-height:250px;position:relative;overflow:hidden;
+ background:
+ radial-gradient(circle at 80% 20%,rgba(0,230,255,.22),transparent 35%),
+ radial-gradient(circle at 20% 80%,rgba(136,72,255,.27),transparent 40%),
+ rgba(0,0,0,.28);
+ border:1px solid rgba(255,255,255,.08);
+}
+.profileLogo{
+ width:76px;height:76px;border-radius:24px;display:grid;place-items:center;
+ background:linear-gradient(135deg,#fff,#8065ff,#00d9ff);
+ color:#050509;font-size:28px;font-weight:1000;
+ box-shadow:0 0 55px rgba(111,92,255,.35);
+}
+.profile h2{font-size:30px;margin-top:24px;letter-spacing:-1px}
+.profile p{font-size:11px;color:#90909d;margin-top:6px}
+.priceRow{display:flex;justify-content:space-between;align-items:end;margin-top:30px}
+.price small{display:block;color:#777783;font-size:9px;letter-spacing:1px}
+.price b{font-size:32px}
+.avail{font-size:10px;color:#7df5d5}
+.avail:before{content:"";display:inline-block;width:6px;height:6px;background:#7df5d5;border-radius:50%;margin-right:6px;box-shadow:0 0 10px #7df5d5}
+.floatBadge{
+ position:absolute;right:22px;bottom:22px;padding:10px 13px;border-radius:13px;
+ background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
+ font-size:9px;color:#c7c7d2;
+ animation:badge 3s ease-in-out infinite;
+}
+@keyframes badge{50%{transform:translateY(-7px)}}
+
+/* SECTIONS */
+.section{max-width:1180px;margin:auto;padding:105px 25px}
+.eyebrow{font-size:9px;letter-spacing:3px;color:#777787;text-transform:uppercase;margin-bottom:13px}
+.sectionTitle{font-size:clamp(31px,5vw,52px);letter-spacing:-2px;line-height:1.02}
+.sectionSub{color:#858591;font-size:14px;line-height:1.7;max-width:650px;margin-top:14px}
+
+/* SERVICES */
+.servicesGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:42px}
+.service{
+ position:relative;padding:25px;border-radius:22px;
+ background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);
+ overflow:hidden;transition:.35s;cursor:pointer;
+}
+.service:before{content:"";position:absolute;inset:-1px;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(128,99,255,.20),transparent 28%);opacity:0;transition:.3s}
+.service:hover{transform:translateY(-7px);border-color:rgba(255,255,255,.2);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.service:hover:before{opacity:1}
+.icon{
+ width:48px;height:48px;border-radius:15px;display:grid;place-items:center;
+ background:rgba(255,255,255,.07);font-size:21px;margin-bottom:25px;
+ border:1px solid rgba(255,255,255,.08);
+}
+.service h3{font-size:17px;margin-bottom:7px}
+.service p{font-size:11px;color:#858591;line-height:1.6;min-height:36px}
+.serviceBottom{display:flex;justify-content:space-between;align-items:end;margin-top:23px}
+.servicePrice{font-size:16px;font-weight:900}
+.servicePrice small{font-size:9px;color:#73737e;font-weight:500}
+.arrow{font-size:18px;color:#777;transition:.3s}
+.service:hover .arrow{color:#fff;transform:translateX(4px)}
+
+/* OFFERS */
+.offerGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:38px}
+.offer{
+ padding:24px;border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+ border:1px solid rgba(255,255,255,.1);position:relative;overflow:hidden;
+}
+.offer:first-child{border-color:rgba(131,99,255,.35)}
+.offerTag{font-size:8px;letter-spacing:1.5px;color:#9b8aff}
+.offer h3{font-size:18px;margin:14px 0 8px}
+.offer p{font-size:10px;color:#858591;line-height:1.6}
+.offer b{display:block;margin-top:20px;font-size:20px}
+
+/* WHY */
+.why{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:40px}
+.whyCard{
+ padding:27px;border-radius:23px;border:1px solid rgba(255,255,255,.09);
+ background:rgba(255,255,255,.03);
+}
+.whyCard h3{margin:12px 0 8px;font-size:17px}
+.whyCard p{font-size:11px;color:#858591;line-height:1.7}
+
+/* PROCESS */
+.process{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:42px}
+.step{
+ padding:23px;border-top:1px solid rgba(255,255,255,.14);
+ position:relative;
+}
+.stepNum{font-size:10px;color:#8b7aff;letter-spacing:2px}
+.step h3{margin-top:18px;font-size:16px}
+.step p{font-size:10px;color:#777783;line-height:1.6;margin-top:8px}
+
+/* PAYMENT */
+.payment{
+ padding:42px;border-radius:30px;border:1px solid rgba(255,255,255,.1);
+ background:
+ radial-gradient(circle at 85% 20%,rgba(0,220,255,.11),transparent 30%),
+ radial-gradient(circle at 10% 90%,rgba(120,70,255,.13),transparent 35%),
+ rgba(255,255,255,.035);
+ display:flex;justify-content:space-between;gap:35px;align-items:center;
+}
+.upi{margin-top:22px;display:inline-flex;padding:13px 16px;border-radius:13px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.08);font-size:12px;word-break:break-all}
+.paymentActions{display:flex;gap:10px;flex-wrap:wrap}
+
+/* CTA */
+.final{
+ text-align:center;padding:120px 20px 140px;max-width:900px;margin:auto;
+}
+.final h2{font-size:clamp(40px,7vw,75px);letter-spacing:-3px;line-height:.98}
+.final p{color:#858591;margin:20px auto;max-width:550px;line-height:1.7;font-size:13px}
+
+/* FOOTER */
+footer{border-top:1px solid rgba(255,255,255,.07);padding:35px 25px 120px;color:#666674;font-size:10px}
+.footerIn{max-width:1180px;margin:auto;display:flex;justify-content:space-between;gap:20px}
+.footerBrand{color:#aaa;font-weight:900;letter-spacing:1.5px}
+.footerLinks{display:flex;gap:18px}
+.footerLinks a:hover{color:#fff}
+
+/* BOTTOM NAV */
+.bottomNav{
+ display:none;position:fixed;z-index:1001;bottom:12px;left:12px;right:12px;
+ height:66px;border:1px solid rgba(255,255,255,.11);border-radius:20px;
+ background:rgba(8,8,13,.85);backdrop-filter:blur(25px);
+ box-shadow:0 15px 50px rgba(0,0,0,.5);
+ justify-content:space-around;align-items:center;
+}
+.bottomNav a{font-size:9px;color:#777;text-align:center}
+.bottomNav span{display:block;font-size:18px;margin-bottom:3px}
+.bottomNav a.active{color:#fff}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s ease,transform .8s ease}
+.reveal.show{opacity:1;transform:none}
+
+/* MOBILE */
+@media(max-width:850px){
+ .nav{height:60px;top:10px}
+ .navlinks,.nav>.navbtn{display:none}
+ .menu{display:block}
+ .hero{padding-top:125px}
+ .heroGrid{grid-template-columns:1fr;gap:35px}
+ .hero h1{letter-spacing:-2.5px}
+ .heroCard{min-height:400px;transform:none}
+ .servicesGrid{grid-template-columns:1fr 1fr}
+ .offerGrid{grid-template-columns:1fr 1fr}
+ .process{grid-template-columns:1fr 1fr}
+ .payment{flex-direction:column;align-items:flex-start}
+ .bottomNav{display:flex}
+ footer{padding-bottom:100px}
+}
+@media(max-width:560px){
+ .hero,.section{padding-left:17px;padding-right:17px}
+ .hero{padding-top:110px}
+ .hero h1{font-size:48px}
+ .hero p{font-size:13px}
+ .miniStats{gap:18px}
+ .stat strong{font-size:18px}
+ .heroCard{border-radius:25px;padding:13px}
+ .profile{padding:21px;min-height:240px}
+ .profile h2{font-size:25px}
+ .servicesGrid,.offerGrid,.why,.process{grid-template-columns:1fr}
+ .service{padding:22px}
+ .offer{padding:22px}
+ .payment{padding:27px;border-radius:24px}
+ .footerIn{flex-direction:column}
+ .footerLinks{flex-wrap:wrap}
+ .ctas{flex-direction:column}
+ .primary,.secondary{justify-content:center;width:100%}
+}
+</style>
+</head>
+
+<body>
+<div class="grid"></div>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+<div class="orb o3"></div>
+<div class="particles" id="particles"></div>
+
+<header class="nav">
+  <a href="/" class="brand">
+    <div class="logo">M</div>
+    <div class="brandText">
+      <strong>MAYUR SERVICES</strong>
+      <span>DIGITAL • CREATIVE • TECH</span>
+    </div>
+  </a>
+
+  <nav class="navlinks">
+    <a href="#services">Services</a>
+    <a href="#offers">Offers</a>
+    <a href="#process">Process</a>
+    <a href="/track">Track</a>
+  </nav>
+
+  <a href="/order" class="navbtn">START PROJECT ↗</a>
+  <button class="menu" onclick="document.querySelector('.navlinks').classList.toggle('mobileShow')">☰</button>
+</header>
+
+<main>
+
+<section class="hero">
+ <div class="heroGrid">
+
+  <div class="reveal">
+   <div class="tags">
+    <span class="tag live">AVAILABLE NOW</span>
+    <span class="tag">DIGITAL</span>
+    <span class="tag">CREATIVE</span>
+    <span class="tag">TECH</span>
+   </div>
+
+   <h1>Build something<br><span class="gradient">worth seeing.</span></h1>
+
+   <p>
+    Premium websites, designs, resumes, applications and digital work —
+    crafted with a clean professional finish for students, creators and businesses.
+   </p>
+
+   <div class="ctas">
+    <a class="primary" href="/order">Start Your Project <span>↗</span></a>
+    <a class="secondary" href="#services">Explore Services ↓</a>
+   </div>
+
+   <div class="miniStats">
+    <div class="stat"><strong>10+</strong><span>Services</span></div>
+    <div class="stat"><strong>₹99+</strong><span>Starting</span></div>
+    <div class="stat"><strong>24/7</strong><span>Order Access</span></div>
+   </div>
+  </div>
+
+  <div class="heroCard reveal">
+   <div class="cardTop">
+    <span class="cardLabel">MAYUR / DIGITAL STUDIO</span>
+    <span class="verified">✓ VERIFIED</span>
+   </div>
+
+   <div class="profile">
+    <div class="profileLogo">MS</div>
+    <h2>MAYUR SERVICES</h2>
+    <p>Digital • Creative • Technology</p>
+
+    <div class="priceRow">
+      <div class="price">
+       <small>PROJECTS FROM</small>
+       <b>₹99+</b>
+      </div>
+      <div class="avail">Open for work</div>
+    </div>
+
+    <div class="floatBadge">✦ Premium Quality</div>
+   </div>
+  </div>
+
+ </div>
+</section>
+
+<section class="section reveal" id="services">
+ <div class="eyebrow">01 / SERVICES</div>
+ <h2 class="sectionTitle">Everything you need.<br>One premium studio.</h2>
+ <p class="sectionSub">Choose a service and tell us exactly what you need. Every project is handled through a professional order workflow.</p>
+
+ <div class="servicesGrid">
+
+  <a class="service" href="/order?service=Website%20Design">
+   <div class="icon">◈</div><h3>Website Design</h3>
+   <p>Modern responsive websites with premium UI and animations.</p>
+   <div class="serviceBottom"><div class="servicePrice">₹499+ <small>STARTING</small></div><span class="arrow">↗</span></div>
+  </a>
+
+  <a class="service" href="/order?service=Resume%20%2F%20CV">
+   <div class="icon">▣</div><h3>Resume / CV</h3>
+   <p>Professional resume and CV design for students and jobs.</p>
+   <div class="serviceBottom"><div class="servicePrice">₹149+ <small>STARTING</small></div><span class="arrow">↗</span></div>
+  </a>
+
+  <a class="service" href="/order?service=Poster%20Design">
+   <div class="icon">✦</div><h3>Poster Design</h3>
+   <p>Creative posters for events, businesses and promotions.</p>
+   <div class="serviceBottom"><div class="servicePrice">₹99+ <small>STARTING</small></div><span class="arrow">↗</span></div>
+  </a>
+
+  <a class="service" href="/order?service=Instagram%20Post">
+   <div class="icon">◎</div><h3>Instagram Post</h3>
+   <p>Scroll-stopping social media creatives and posts.</p>
+   <div class="serviceBottom"><div class="servicePrice">₹99+ <small>STARTING</small></div><span class="arrow">↗</span></div>
+  </a>
+
+  <a class="service" href="/order?service=Photo%20Editing">
+   <div class="icon">◉</div><h3>Photo Editing</h3>
+   <p>Premium retouching, enhancement and creative edits.</p>
+   <div class="serviceBottom"><div class="servicePrice">₹99+ <small>STARTING</small></div><span class="arrow">↗</span></div>
+  </a>
+
+  <a class="service" href="/order?service=Mobile%20Application">
+   <div class="icon">▤</div><h3>Mobile Application</h3>
+   <p>Custom Android and modern mobile application projects.</p>
+   <div class="serviceBottom"><div class="servicePrice">₹2,999+ <small>STARTING</small></div><span class="arrow">↗</span></div>
+  </a>
+
+  <a class="service" href="/order?service=Practice%20File%20Written">
+   <div class="icon">▤</div><h3>Practice File Written</h3>
+   <p>Neat and properly structured academic practical files.</p>
+   <div class="serviceBottom"><div class="servicePrice">₹299+ <small>STARTING</small></div><span class="arrow">↗</span></div>
+  </a>
+
+  <a class="service" href="/order?service=Notes%20Written">
+   <div class="icon">≡</div><h3>Notes Written</h3>
+   <p>Subject-wise notes prepared according to your requirements.</p>
+   <div class="serviceBottom"><div class="servicePrice">₹199 <small>/ SUBJECT</small></div><span class="arrow">↗</span></div>
+  </a>
+
+  <a class="service" href="/order?service=Detention%20Work%20Written">
+   <div class="icon">⌁</div><h3>Detention Work</h3>
+   <p>Academic written work charged according to page count.</p>
+   <div class="serviceBottom"><div class="servicePrice">₹10 <small>/ PAGE</small></div><span class="arrow">↗</span></div>
+  </a>
+
+  <a class="service" href="/order?service=Other%20%2F%20Any%20Work">
+   <div class="icon">+</div><h3>Other / Any Work</h3>
+   <p>Have something different? Tell us your requirement.</p>
+   <div class="serviceBottom"><div class="servicePrice">CUSTOM</div><span class="arrow">↗</span></div>
+  </a>
+
+ </div>
+</section>
+
+<section class="section reveal" id="offers">
+ <div class="eyebrow">02 / SPECIAL OFFERS</div>
+ <h2 class="sectionTitle">More work.<br>Better value.</h2>
+
+ <div class="offerGrid">
+  <div class="offer"><span class="offerTag">POPULAR</span><h3>Combo Offer</h3><p>Resume/CV + Instagram Post + Photo Editing</p><b>₹299+</b></div>
+  <div class="offer"><span class="offerTag">STUDENT</span><h3>Student Pack</h3><p>Practice File Written + Notes Written</p><b>₹399+</b></div>
+  <div class="offer"><span class="offerTag">TECH</span><h3>App Starter</h3><p>Custom mobile application starter project</p><b>₹2,999+</b></div>
+  <div class="offer"><span class="offerTag">BULK</span><h3>Bulk Work</h3><p>Multiple projects and large academic work</p><b>Custom</b></div>
+ </div>
+</section>
+
+<section class="section reveal">
+ <div class="eyebrow">03 / WHY MAYUR</div>
+ <h2 class="sectionTitle">Designed to feel<br>professional.</h2>
+
+ <div class="why">
+  <div class="whyCard"><div class="icon">✦</div><h3>Premium Finish</h3><p>Clean layouts, polished visuals and attention to the details that make your project look professional.</p></div>
+  <div class="whyCard"><div class="icon">⚡</div><h3>Simple Process</h3><p>Place your order, receive your Order ID and track the work from one simple system.</p></div>
+  <div class="whyCard"><div class="icon">⌁</div><h3>Direct Support</h3><p>Connect directly through WhatsApp whenever you need project or payment communication.</p></div>
+  <div class="whyCard"><div class="icon">◈</div><h3>Transparent Tracking</h3><p>Your order moves through clear stages so you can see its current progress.</p></div>
+ </div>
+</section>
+
+<section class="section reveal" id="process">
+ <div class="eyebrow">04 / PROCESS</div>
+ <h2 class="sectionTitle">From idea to<br>delivery.</h2>
+
+ <div class="process">
+  <div class="step"><span class="stepNum">01 — ORDER</span><h3>Tell us what you need</h3><p>Submit your project details through the professional order form.</p></div>
+  <div class="step"><span class="stepNum">02 — CONFIRM</span><h3>Get your Order ID</h3><p>Your order is securely recorded and a unique Order ID is generated.</p></div>
+  <div class="step"><span class="stepNum">03 — CREATE</span><h3>Work begins</h3><p>Once confirmed, the project moves into the production stage.</p></div>
+  <div class="step"><span class="stepNum">04 — DELIVER</span><h3>Receive your work</h3><p>Track the project and communicate directly until completion.</p></div>
+ </div>
+</section>
+
+<section class="section reveal">
+ <div class="payment">
+  <div>
+   <div class="eyebrow">05 / PAYMENT</div>
+   <h2 class="sectionTitle" style="font-size:38px">Fast & simple payment.</h2>
+   <p class="sectionSub">Pay through UPI and send your payment screenshot/reference on WhatsApp for verification.</p>
+   <div class="upi">UPI ID&nbsp; • &nbsp;<b>mayurrathod9349@naviaxis</b></div>
+  </div>
+
+  <div class="paymentActions">
+   <a class="primary" href="upi://pay?pa=mayurrathod9349@naviaxis&pn=Mayur%20Services&cu=INR">Pay via UPI ↗</a>
+   <a class="secondary" href="https://wa.me/919370155844?text=Hello%20Mayur%20Services%2C%20I%20have%20completed%20the%20payment.">WhatsApp Payment</a>
+  </div>
+ </div>
+</section>
+
+<section class="final reveal">
+ <div class="eyebrow">READY WHEN YOU ARE</div>
+ <h2>Let's build your<br><span class="gradient">next project.</span></h2>
+ <p>Have an idea, assignment, design or digital project? Start with a simple order and we'll take it from there.</p>
+ <div class="ctas" style="justify-content:center">
+  <a class="primary" href="/order">Place an Order ↗</a>
+  <a class="secondary" href="/track">Track Existing Order</a>
+ </div>
+</section>
+
+</main>
+
+<footer>
+ <div class="footerIn">
+  <div>
+   <div class="footerBrand">MAYUR SERVICES</div>
+   <div style="margin-top:8px">DIGITAL • CREATIVE • TECH</div>
+  </div>
+  <div class="footerLinks">
+   <a href="/order">Order</a>
+   <a href="/track">Track</a>
+   <a href="/admin">Admin</a>
+   <a href="https://wa.me/919370155844">WhatsApp</a>
+  </div>
+ </div>
+</footer>
+
+<nav class="bottomNav">
+ <a href="/" class="active"><span>⌂</span>Home</a>
+ <a href="#services"><span>◈</span>Services</a>
+ <a href="/order"><span>＋</span>Order</a>
+ <a href="/track"><span>⌁</span>Track</a>
+ <a href="/admin"><span>⚙</span>Admin</a>
+</nav>
+
+<script>
+/* PARTICLES */
+const particles=document.getElementById("particles");
+for(let i=0;i<32;i++){
+ const p=document.createElement("i");
+ p.className="p";
+ p.style.left=Math.random()*100+"%";
+ p.style.animationDuration=(7+Math.random()*12)+"s";
+ p.style.animationDelay=(-Math.random()*15)+"s";
+ p.style.opacity=.15+Math.random()*.35;
+ particles.appendChild(p);
+}
+
+/* SCROLL REVEAL */
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("show")});
+},{threshold:.10});
+document.querySelectorAll(".reveal").forEach(x=>observer.observe(x));
+
+/* CARD GLOW */
+document.querySelectorAll(".service").forEach(card=>{
+ card.addEventListener("pointermove",e=>{
+  const r=card.getBoundingClientRect();
+  card.style.setProperty("--x",(e.clientX-r.left)+"px");
+  card.style.setProperty("--y",(e.clientY-r.top)+"px");
+ });
+});
+
+/* NAV MOBILE */
+const style=document.createElement("style");
+style.textContent=`
+.navlinks.mobileShow{
+ display:flex!important;position:absolute;top:68px;left:0;right:0;
+ flex-direction:column;padding:10px;background:rgba(8,8,13,.96);
+ border:1px solid rgba(255,255,255,.1);border-radius:18px;
+}
+@media(max-width:850px){.navlinks.mobileShow a{padding:14px}}
+`;
+document.head.appendChild(style);
+
+/* SMOOTH HASH */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+ a.addEventListener("click",e=>{
+  const el=document.querySelector(a.getAttribute("href"));
+  if(el){e.preventDefault();el.scrollIntoView({behavior:"smooth"})}
+ });
+});
+</script>
+</body>
+</html>

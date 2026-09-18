@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#070711">
+<title>MAYUR SERVICES — Premium Digital Studio</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+font-family:Inter,Arial,sans-serif;
+background:#050509;
+color:#fff;
+overflow-x:hidden;
+}
+
+/* ===== BACKGROUND ===== */
+body:before{
+content:"";
+position:fixed;
+inset:0;
+z-index:-5;
+background:
+radial-gradient(circle at 15% 20%,rgba(115,70,255,.18),transparent 28%),
+radial-gradient(circle at 85% 75%,rgba(0,190,255,.12),transparent 30%),
+radial-gradient(circle at 50% 50%,rgba(255,255,255,.025),transparent 45%);
+animation:bgMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes bgMove{
+0%{transform:scale(1) translate(0,0)}
+100%{transform:scale(1.12) translate(-2%,2%)}
+}
+
+.grid-bg{
+position:fixed;
+inset:0;
+z-index:-4;
+opacity:.13;
+background-image:
+linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+background-size:55px 55px;
+mask-image:linear-gradient(to bottom,black,transparent 85%);
+animation:gridMove 20s linear infinite;
+}
+
+@keyframes gridMove{
+to{background-position:55px 55px}
+}
+
+/* ===== PARTICLES ===== */
+.particles{
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:-3;
+}
+
+.particles i{
+position:absolute;
+width:3px;
+height:3px;
+border-radius:50%;
+background:#a88aff;
+box-shadow:0 0 12px #8c6cff;
+animation:particle 7s linear infinite;
+}
+
+.particles i:nth-child(1){left:8%;top:25%;animation-delay:0s}
+.particles i:nth-child(2){left:22%;top:70%;animation-delay:1s}
+.particles i:nth-child(3){left:40%;top:15%;animation-delay:2s}
+.particles i:nth-child(4){left:63%;top:55%;animation-delay:3s}
+.particles i:nth-child(5){left:82%;top:30%;animation-delay:1.5s}
+.particles i:nth-child(6){left:92%;top:78%;animation-delay:4s}
+.particles i:nth-child(7){left:50%;top:88%;animation-delay:2.5s}
+.particles i:nth-child(8){left:30%;top:42%;animation-delay:5s}
+
+@keyframes particle{
+0%{transform:translateY(40px);opacity:0}
+20%{opacity:1}
+80%{opacity:1}
+100%{transform:translateY(-160px);opacity:0}
+}
+
+/* ===== HEADER ===== */
+header{
+position:fixed;
+top:15px;
+left:50%;
+transform:translateX(-50%);
+width:min(1120px,92%);
+z-index:1000;
+padding:13px 18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border:1px solid rgba(255,255,255,.1);
+background:rgba(8,8,15,.68);
+backdrop-filter:blur(22px);
+border-radius:22px;
+box-shadow:0 15px 50px rgba(0,0,0,.35);
+animation:headerIn 1s cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes headerIn{
+from{opacity:0;transform:translate(-50%,-30px)}
+to{opacity:1;transform:translate(-50%,0)}
+}
+
+.logo{
+font-weight:900;
+font-size:22px;
+letter-spacing:3px;
+background:linear-gradient(90deg,#fff,#9877ff,#5ee5ff,#fff);
+background-size:300%;
+-webkit-background-clip:text;
+color:transparent;
+animation:logoFlow 4s linear infinite;
+}
+
+@keyframes logoFlow{
+to{background-position:300%}
+}
+
+.nav{
+display:flex;
+gap:5px;
+}
+
+.nav a{
+color:#aaa;
+text-decoration:none;
+padding:10px 14px;
+border-radius:13px;
+font-size:14px;
+transition:.35s;
+}
+
+.nav a:hover{
+color:#fff;
+background:rgba(130,100,255,.16);
+transform:translateY(-2px);
+box-shadow:0 0 20px rgba(130,100,255,.12);
+}
+
+/* ===== HERO ===== */
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:130px 20px 80px;
+position:relative;
+}
+
+.hero-content{
+max-width:900px;
+animation:heroIn 1.3s cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes heroIn{
+from{
+opacity:0;
+transform:translateY(60px) scale(.94);
+filter:blur(12px)
+}
+to{
+opacity:1;
+transform:none;
+filter:blur(0)
+}
+}
+
+.badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:9px 17px;
+border:1px solid rgba(150,120,255,.35);
+background:rgba(110,80,255,.09);
+border-radius:100px;
+font-size:12px;
+letter-spacing:2px;
+color:#bdaeff;
+margin-bottom:28px;
+box-shadow:0 0 35px rgba(120,80,255,.1);
+animation:badgePulse 2.5s ease-in-out infinite;
+}
+
+@keyframes badgePulse{
+50%{box-shadow:0 0 40px rgba(120,80,255,.25)}
+}
+
+.hero h1{
+font-size:clamp(48px,8vw,100px);
+line-height:.95;
+letter-spacing:-5px;
+margin-bottom:28px;
+}
+
+.hero h1 span{
+display:inline-block;
+background:linear-gradient(
+90deg,
+#fff,
+#a485ff,
+#62dcff,
+#fff
+);
+background-size:300%;
+-webkit-background-clip:text;
+color:transparent;
+animation:titleFlow 5s linear infinite;
+}
+
+@keyframes titleFlow{
+to{background-position:300%}
+}
+
+.hero p{
+max-width:650px;
+margin:auto;
+color:#92929f;
+font-size:18px;
+line-height:1.8;
+}
+
+.hero-buttons{
+margin-top:38px;
+display:flex;
+justify-content:center;
+gap:14px;
+flex-wrap:wrap;
+}
+
+.btn{
+position:relative;
+overflow:hidden;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+padding:15px 24px;
+border-radius:15px;
+text-decoration:none;
+font-weight:700;
+transition:.4s cubic-bezier(.16,1,.3,1);
+}
+
+.btn:before{
+content:"";
+position:absolute;
+width:80px;
+height:200%;
+left:-100px;
+top:-50%;
+background:rgba(255,255,255,.25);
+transform:rotate(20deg);
+transition:.7s;
+}
+
+.btn:hover:before{left:130%}
+
+.primary{
+color:#fff;
+background:linear-gradient(135deg,#6f4cff,#a16eff);
+box-shadow:0 15px 40px rgba(110,70,255,.25);
+}
+
+.secondary{
+color:#ddd;
+border:1px solid rgba(255,255,255,.12);
+background:rgba(255,255,255,.04);
+}
+
+.btn:hover{
+transform:translateY(-6px) scale(1.03);
+box-shadow:0 22px 50px rgba(100,70,255,.25);
+}
+
+/* ===== SCROLL INDICATOR ===== */
+.scroll{
+position:absolute;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+color:#666;
+font-size:11px;
+letter-spacing:3px;
+animation:scrollFloat 2s ease-in-out infinite;
+}
+
+@keyframes scrollFloat{
+50%{transform:translate(-50%,8px);opacity:.5}
+}
+
+/* ===== SECTIONS ===== */
+section{
+padding:110px 6%;
+}
+
+.section-title{
+text-align:center;
+margin-bottom:55px;
+}
+
+.section-title .mini{
+font-size:12px;
+letter-spacing:4px;
+color:#9575ff;
+font-weight:bold;
+}
+
+.section-title h2{
+font-size:clamp(32px,5vw,50px);
+margin-top:10px;
+}
+
+.section-title p{
+margin-top:12px;
+color:#777;
+}
+
+/* ===== SERVICES ===== */
+.services-grid{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:17px;
+}
+
+.card{
+position:relative;
+overflow:hidden;
+padding:28px 21px;
+min-height:290px;
+border-radius:24px;
+border:1px solid rgba(255,255,255,.09);
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,.065),
+rgba(255,255,255,.018)
+);
+backdrop-filter:blur(15px);
+transition:
+transform .5s cubic-bezier(.16,1,.3,1),
+border-color .4s,
+box-shadow .4s;
+opacity:0;
+transform:translateY(40px);
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.card:before{
+content:"";
+position:absolute;
+width:180px;
+height:180px;
+top:-100px;
+right:-100px;
+background:#7655ff;
+filter:blur(80px);
+opacity:0;
+transition:.5s;
+}
+
+.card:after{
+content:"";
+position:absolute;
+top:0;
+left:-120%;
+width:80%;
+height:100%;
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.09),
+transparent
+);
+transform:skewX(-20deg);
+transition:.8s;
+pointer-events:none;
+}
+
+.card:hover{
+transform:translateY(-13px) scale(1.025);
+border-color:rgba(140,110,255,.55);
+box-shadow:
+0 30px 70px rgba(0,0,0,.5),
+0 0 35px rgba(110,80,255,.12);
+}
+
+.card:hover:before{opacity:.18}
+.card:hover:after{left:150%}
+
+.icon{
+font-size:40px;
+display:inline-block;
+margin-bottom:22px;
+transition:.5s cubic-bezier(.16,1,.3,1);
+}
+
+.card:hover .icon{
+transform:translateY(-8px) scale(1.18) rotate(-6deg);
+filter:drop-shadow(0 0 15px rgba(150,120,255,.5));
+}
+
+.card h3{
+font-size:19px;
+margin-bottom:10px;
+}
+
+.card p{
+color:#888;
+font-size:13px;
+line-height:1.65;
+min-height:65px;
+}
+
+.price{
+font-size:20px;
+font-weight:800;
+color:#b7a2ff;
+margin:18px 0;
+}
+
+.order-btn{
+display:block;
+text-align:center;
+padding:11px;
+border-radius:11px;
+background:#12111b;
+border:1px solid #30265c;
+color:#fff;
+text-decoration:none;
+font-size:13px;
+font-weight:bold;
+transition:.35s;
+}
+
+.order-btn:hover{
+background:#7656ed;
+border-color:#967dff;
+transform:translateY(-3px);
+box-shadow:0 10px 25px rgba(110,80,255,.2);
+}
+
+/* ===== PAYMENT ===== */
+.payment-wrap{
+max-width:780px;
+margin:auto;
+position:relative;
+}
+
+.payment-box{
+position:relative;
+overflow:hidden;
+padding:55px 35px;
+border-radius:30px;
+text-align:center;
+border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.045);
+backdrop-filter:blur(20px);
+box-shadow:0 30px 90px rgba(0,0,0,.4);
+animation:paymentFloat 5s ease-in-out infinite;
+}
+
+@keyframes paymentFloat{
+50%{transform:translateY(-8px)}
+}
+
+.payment-box:before{
+content:"";
+position:absolute;
+width:300px;
+height:150px;
+left:50%;
+top:-100px;
+transform:translateX(-50%);
+background:#7655ff;
+filter:blur(90px);
+opacity:.2;
+}
+
+.payment-icon{
+font-size:50px;
+display:inline-block;
+animation:iconFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes iconFloat{
+50%{transform:translateY(-9px) rotate(5deg)}
+}
+
+.payment-box h2{
+font-size:38px;
+margin:18px 0 12px;
+}
+
+.payment-box>p{
+color:#888;
+line-height:1.7;
+}
+
+.upi{
+margin:25px auto;
+max-width:420px;
+padding:16px;
+border-radius:14px;
+background:#09090f;
+border:1px solid #252434;
+font-family:monospace;
+color:#888;
+}
+
+.upi strong{color:#b69fff}
+
+.pay{
+position:relative;
+overflow:hidden;
+display:inline-block;
+padding:15px 27px;
+border-radius:14px;
+text-decoration:none;
+font-weight:bold;
+color:white;
+background:linear-gradient(135deg,#6d4df0,#9b70ff);
+box-shadow:0 15px 40px rgba(110,75,255,.25);
+transition:.4s;
+}
+
+.pay:hover{
+transform:translateY(-5px) scale(1.03);
+box-shadow:0 22px 50px rgba(110,75,255,.35);
+}
+
+.note{
+font-size:11px!important;
+margin-top:18px;
+}
+
+/* ===== CTA ===== */
+.cta{
+text-align:center;
+padding:70px 20px;
+}
+
+.cta-box{
+max-width:900px;
+margin:auto;
+padding:60px 25px;
+border-radius:30px;
+border:1px solid rgba(255,255,255,.08);
+background:linear-gradient(
+145deg,
+rgba(125,90,255,.09),
+rgba(255,255,255,.025)
+);
+}
+
+.cta-box h2{
+font-size:clamp(32px,5vw,55px);
+margin-bottom:15px;
+}
+
+.cta-box p{
+color:#888;
+margin-bottom:28px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+padding:45px 20px;
+text-align:center;
+border-top:1px solid rgba(255,255,255,.07);
+color:#666;
+}
+
+footer b{color:#a88cff}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1050px){
+.services-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+@media(max-width:700px){
+header{
+top:8px;
+width:94%;
+}
+
+.nav a{
+padding:8px;
+font-size:12px;
+}
+
+.hero h1{
+letter-spacing:-3px;
+}
+
+section{
+padding:80px 5%;
+}
+
+.services-grid{
+grid-template-columns:1fr 1fr;
+}
+
+.card{
+min-height:270px;
+}
+
+.payment-box{
+padding:42px 22px;
+}
+}
+
+@media(max-width:480px){
+.logo{font-size:18px}
+.nav a:nth-child(1){display:none}
+
+.hero{
+padding-top:120px;
+}
+
+.hero h1{
+font-size:47px;
+}
+
+.hero p{
+font-size:15px;
+}
+
+.services-grid{
+grid-template-columns:1fr;
+}
+
+.card{
+min-height:250px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+
+<div class="particles">
+<i></i><i></i><i></i><i></i>
+<i></i><i></i><i></i><i></i>
+</div>
+
+<header>
+<div class="logo">MAYUR.</div>
+
+<nav class="nav">
+<a href="#services">Services</a>
+<a href="#payment">Payment</a>
+<a href="/order">Order</a>
+</nav>
+</header>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<div class="badge">
+<span>✦</span> PREMIUM DIGITAL STUDIO
+</div>
+
+<h1>
+Build Something<br>
+<span>Extraordinary.</span>
+</h1>
+
+<p>
+Websites, resumes, posters, Instagram creatives
+and professional photo editing — crafted with
+modern design and premium attention to detail.
+</p>
+
+<div class="hero-buttons">
+<a class="btn primary" href="/order">🚀 Start Your Order</a>
+<a class="btn secondary" href="#services">Explore Services ↓</a>
+</div>
+
+</div>
+
+<div class="scroll">SCROLL ↓</div>
+
+</section>
+
+<section id="services">
+
+<div class="section-title">
+<div class="mini">WHAT WE CREATE</div>
+<h2>Premium Services</h2>
+<p>Simple pricing. Professional results.</p>
+</div>
+
+<div class="services-grid">
+
+<div class="card">
+<div class="icon">🌐</div>
+<h3>Website Design</h3>
+<p>Modern responsive websites with premium UI, animations and mobile support.</p>
+<div class="price">₹499+</div>
+<a class="order-btn" href="/order?service=Website%20Design">Order Now →</a>
+</div>
+
+<div class="card">
+<div class="icon">📄</div>
+<h3>Resume / CV</h3>
+<p>Clean professional resumes designed for jobs, internships and careers.</p>
+<div class="price">₹149+</div>
+<a class="order-btn" href="/order?service=Resume%20%2F%20CV">Order Now →</a>
+</div>
+
+<div class="card">
+<div class="icon">🎨</div>
+<h3>Poster Design</h3>
+<p>Creative promotional posters for events, businesses and social media.</p>
+<div class="price">₹99+</div>
+<a class="order-btn" href="/order?service=Poster%20Design">Order Now →</a>
+</div>
+
+<div class="card">
+<div class="icon">📱</div>
+<h3>Instagram Post</h3>
+<p>Eye-catching social media creatives designed to match your style.</p>
+<div class="price">₹99+</div>
+<a class="order-btn" href="/order?service=Instagram%20Post">Order Now →</a>
+</div>
+
+<div class="card">
+<div class="icon">✨</div>
+<h3>Photo Editing</h3>
+<p>Cinematic and professional edits for profiles, posts and portfolios.</p>
+<div class="price">₹99+</div>
+<a class="order-btn" href="/order?service=Photo%20Editing">Order Now →</a>
+</div>
+
+</div>
+</section>
+
+<section id="payment">
+
+<div class="section-title">
+<div class="mini">SECURE PAYMENT</div>
+<h2>Pay With UPI</h2>
+<p>Quick and simple payment through your favourite UPI app.</p>
+</div>
+
+<div class="payment-wrap">
+
+<div class="payment-box">
+
+<div class="payment-icon">💳</div>
+
+<h2>Easy UPI Payment</h2>
+
+<p>
+Google Pay · PhonePe · Paytm · BHIM · Any UPI App
+</p>
+
+<div class="upi">
+UPI ID:
+<strong>mayurrathod9349@naviaxis</strong>
+</div>
+
+<a
+class="pay"
+href="upi://pay?pa=mayurrathod9349@naviaxis&pn=Mayur%20Services&cu=INR">
+💸 Pay With UPI
+</a>
+
+<p class="note">
+After payment, send your payment screenshot on WhatsApp.
+</p>
+
+</div>
+
+</div>
+</section>
+
+<section class="cta">
+
+<div class="cta-box">
+
+<h2>Have an Idea?</h2>
+
+<p>
+Let's turn it into something amazing.
+</p>
+
+<a class="btn primary" href="/order">
+🚀 Start Your Project
+</a>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 <b>MAYUR SERVICES</b> · Premium Digital Solutions
+</footer>
+
+<script>
+
+/* ===== SCROLL REVEAL ===== */
+
+const cards=document.querySelectorAll(".card");
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+},{
+threshold:.12
+});
+
+cards.forEach(card=>observer.observe(card));
+
+/* ===== MOUSE GLOW ===== */
+
+document.addEventListener("pointermove",e=>{
+
+document.body.style.setProperty(
+"--mouse-x",
+e.clientX+"px"
+);
+
+document.body.style.setProperty(
+"--mouse-y",
+e.clientY+"px"
+);
+
+});
+
+/* ===== CARD TILT ===== */
+
+document.querySelectorAll(".card").forEach(card=>{
+
+card.addEventListener("mousemove",e=>{
+
+if(window.innerWidth<700)return;
+
+const r=card.getBoundingClientRect();
+
+const x=e.clientX-r.left;
+const y=e.clientY-r.top;
+
+const rx=(y-r.height/2)/18;
+const ry=(x-r.width/2)/18;
+
+card.style.transform=
+`translateY(-13px) scale(1.025) rotateX(${-rx}deg) rotateY(${ry}deg)`;
+
+});
+
+card.addEventListener("mouseleave",()=>{
+card.style.transform="";
+});
+
+});
+
+/* ===== BUTTON RIPPLE ===== */
+
+document.querySelectorAll(".btn,.order-btn,.pay").forEach(btn=>{
+
+btn.addEventListener("click",function(e){
+
+const ripple=document.createElement("span");
+
+ripple.style.position="absolute";
+ripple.style.width="10px";
+ripple.style.height="10px";
+ripple.style.borderRadius="50%";
+ripple.style.background="rgba(255,255,255,.35)";
+ripple.style.left=e.offsetX+"px";
+ripple.style.top=e.offsetY+"px";
+ripple.style.transform="translate(-50%,-50%) scale(1)";
+ripple.style.pointerEvents="none";
+
+this.appendChild(ripple);
+
+setTimeout(()=>ripple.remove(),600);
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

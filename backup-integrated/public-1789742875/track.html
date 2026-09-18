@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#050507">
+<title>Track Order • Mayur Services</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+  background:#050507;
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:-30%;
+  z-index:-3;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(0,255,180,.14),transparent 25%),
+    radial-gradient(circle at 80% 25%,rgba(120,60,255,.16),transparent 28%),
+    radial-gradient(circle at 50% 90%,rgba(0,150,255,.10),transparent 28%);
+  animation:bgMove 12s ease-in-out infinite alternate;
+}
+
+body:after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  opacity:.15;
+  background-image:
+    linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+  background-size:45px 45px;
+  mask-image:linear-gradient(to bottom,black,transparent);
+}
+
+@keyframes bgMove{
+  0%{transform:translate3d(-2%,-1%,0) scale(1)}
+  100%{transform:translate3d(2%,2%,0) scale(1.08)}
+}
+
+/* HEADER */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:18px 6%;
+  backdrop-filter:blur(20px);
+  background:rgba(5,5,7,.72);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.nav{
+  max-width:1150px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-decoration:none;
+  color:#fff;
+}
+
+.logo span{
+  background:linear-gradient(90deg,#00ffc8,#8c5cff,#00b7ff,#00ffc8);
+  background-size:300%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:gradient 5s linear infinite;
+}
+
+@keyframes gradient{
+  to{background-position:300%}
+}
+
+.home{
+  text-decoration:none;
+  color:#bbb;
+  border:1px solid rgba(255,255,255,.12);
+  padding:10px 16px;
+  border-radius:999px;
+  transition:.3s;
+}
+
+.home:hover{
+  color:#fff;
+  border-color:#00ffc8;
+  box-shadow:0 0 20px rgba(0,255,200,.18);
+}
+
+/* MAIN */
+
+main{
+  width:min(1050px,92%);
+  margin:0 auto;
+  padding:75px 0 100px;
+}
+
+.hero{
+  text-align:center;
+  margin-bottom:45px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 15px;
+  border:1px solid rgba(0,255,200,.25);
+  background:rgba(0,255,200,.07);
+  border-radius:999px;
+  color:#00ffc8;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  margin-bottom:20px;
+}
+
+.badge i{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#00ffc8;
+  box-shadow:0 0 12px #00ffc8;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  50%{transform:scale(1.7);opacity:.45}
+}
+
+h1{
+  font-size:clamp(40px,7vw,76px);
+  line-height:1;
+  font-weight:950;
+  letter-spacing:-3px;
+}
+
+h1 span{
+  background:linear-gradient(90deg,#fff,#00ffc8,#8c5cff,#fff);
+  background-size:300%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:gradient 6s linear infinite;
+}
+
+.subtitle{
+  color:#999;
+  margin:20px auto 0;
+  max-width:600px;
+  line-height:1.7;
+  font-size:16px;
+}
+
+/* SEARCH */
+
+.search-card{
+  max-width:720px;
+  margin:0 auto 45px;
+  padding:10px;
+  border-radius:24px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(20px);
+  box-shadow:0 25px 80px rgba(0,0,0,.4);
+}
+
+.search-inner{
+  display:flex;
+  gap:10px;
+}
+
+input{
+  flex:1;
+  min-width:0;
+  padding:18px 20px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.1);
+  outline:none;
+  color:#fff;
+  background:rgba(0,0,0,.4);
+  font-size:16px;
+}
+
+input:focus{
+  border-color:#00ffc8;
+  box-shadow:0 0 0 3px rgba(0,255,200,.08);
+}
+
+.track-btn{
+  border:0;
+  cursor:pointer;
+  padding:0 25px;
+  border-radius:16px;
+  color:#03100d;
+  font-weight:900;
+  font-size:15px;
+  background:linear-gradient(135deg,#00ffc8,#00aaff);
+  box-shadow:0 10px 30px rgba(0,255,200,.18);
+  transition:.25s;
+}
+
+.track-btn:hover{
+  transform:translateY(-2px) scale(1.02);
+  box-shadow:0 15px 40px rgba(0,255,200,.3);
+}
+
+.track-btn:active{
+  transform:scale(.97);
+}
+
+.error{
+  display:none;
+  margin:15px auto 0;
+  color:#ff7070;
+  text-align:center;
+  font-size:14px;
+}
+
+/* RESULT */
+
+.result{
+  display:none;
+  animation:resultIn .6s ease both;
+}
+
+@keyframes resultIn{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.order-head{
+  padding:25px;
+  border-radius:24px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(20px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:22px;
+}
+
+.order-number{
+  color:#888;
+  font-size:12px;
+  letter-spacing:1px;
+  margin-bottom:7px;
+}
+
+.order-id{
+  font-size:25px;
+  font-weight:900;
+}
+
+.status{
+  padding:11px 17px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:800;
+  white-space:nowrap;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+}
+
+/* TIMELINE */
+
+.timeline-card{
+  padding:35px 25px;
+  border-radius:24px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(20px);
+  margin-bottom:22px;
+}
+
+.section-title{
+  font-size:18px;
+  margin-bottom:30px;
+}
+
+.timeline{
+  position:relative;
+  max-width:800px;
+  margin:auto;
+}
+
+.timeline:before{
+  content:"";
+  position:absolute;
+  left:20px;
+  top:20px;
+  bottom:20px;
+  width:2px;
+  background:rgba(255,255,255,.1);
+}
+
+.step{
+  position:relative;
+  min-height:82px;
+  padding-left:65px;
+}
+
+.dot{
+  position:absolute;
+  left:8px;
+  top:7px;
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:#17171b;
+  border:2px solid #444;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  transition:.4s;
+}
+
+.step.active .dot{
+  background:#00ffc8;
+  color:#00140f;
+  border-color:#00ffc8;
+  box-shadow:0 0 20px rgba(0,255,200,.5);
+}
+
+.step.current .dot{
+  animation:currentPulse 1.5s infinite;
+}
+
+@keyframes currentPulse{
+  50%{
+    box-shadow:0 0 0 8px rgba(0,255,200,.08),
+               0 0 25px rgba(0,255,200,.5);
+  }
+}
+
+.step h3{
+  font-size:16px;
+  margin-bottom:7px;
+}
+
+.step p{
+  color:#777;
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* INFO */
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.info{
+  padding:22px;
+  border-radius:20px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.09);
+}
+
+.info-label{
+  color:#777;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:8px;
+}
+
+.info-value{
+  font-size:15px;
+  font-weight:700;
+  word-break:break-word;
+}
+
+.payment{
+  margin-top:22px;
+  padding:22px;
+  border-radius:20px;
+  border:1px solid rgba(0,255,200,.16);
+  background:rgba(0,255,200,.045);
+}
+
+.payment-title{
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:8px;
+}
+
+.payment-value{
+  font-weight:900;
+  color:#00ffc8;
+}
+
+/* LOADING */
+
+.loading{
+  display:none;
+  text-align:center;
+  padding:35px;
+  color:#999;
+}
+
+.loader{
+  width:35px;
+  height:35px;
+  border:3px solid rgba(255,255,255,.1);
+  border-top-color:#00ffc8;
+  border-radius:50%;
+  margin:0 auto 15px;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* FOOTER */
+
+footer{
+  text-align:center;
+  padding:30px 20px;
+  color:#666;
+  border-top:1px solid rgba(255,255,255,.07);
+  font-size:13px;
+}
+
+footer strong{
+  color:#aaa;
+}
+
+/* MOBILE */
+
+@media(max-width:650px){
+
+  header{
+    padding:15px 5%;
+  }
+
+  .logo{
+    font-size:20px;
+  }
+
+  .home{
+    padding:8px 12px;
+    font-size:13px;
+  }
+
+  main{
+    padding-top:55px;
+  }
+
+  h1{
+    letter-spacing:-2px;
+  }
+
+  .search-inner{
+    flex-direction:column;
+  }
+
+  .track-btn{
+    min-height:52px;
+  }
+
+  .order-head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .info-grid{
+    grid-template-columns:1fr;
+  }
+
+  .timeline-card{
+    padding:30px 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="/" class="logo"><span>MAYUR.</span> SERVICES</a>
+    <a href="/" class="home">← Home</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero">
+
+    <div class="badge">
+      <i></i>
+      LIVE ORDER TRACKING
+    </div>
+
+    <h1>
+      Track Your <span>Order.</span>
+    </h1>
+
+    <p class="subtitle">
+      Enter your Order ID below to view your project status,
+      payment status and progress timeline.
+    </p>
+
+  </section>
+
+  <section class="search-card">
+
+    <div class="search-inner">
+
+      <input
+        id="orderInput"
+        type="text"
+        placeholder="Enter Order ID e.g. ORD-12345678"
+        autocomplete="off"
+      >
+
+      <button class="track-btn" onclick="trackOrder()">
+        Track Order
+      </button>
+
+    </div>
+
+    <div id="error" class="error"></div>
+
+  </section>
+
+  <div id="loading" class="loading">
+    <div class="loader"></div>
+    Checking your order...
+  </div>
+
+  <section id="result" class="result">
+
+    <div class="order-head">
+
+      <div>
+        <div class="order-number">ORDER ID</div>
+        <div id="orderId" class="order-id">ORD-00000000</div>
+      </div>
+
+      <div id="status" class="status">
+        Pending
+      </div>
+
+    </div>
+
+    <div class="timeline-card">
+
+      <h2 class="section-title">
+        Project Progress
+      </h2>
+
+      <div class="timeline">
+
+        <div id="step1" class="step">
+          <div class="dot">✓</div>
+          <h3>Order Received</h3>
+          <p>Your project request has been received successfully.</p>
+        </div>
+
+        <div id="step2" class="step">
+          <div class="dot">₹</div>
+          <h3>Payment</h3>
+          <p>Payment confirmation is being processed.</p>
+        </div>
+
+        <div id="step3" class="step">
+          <div class="dot">⚙</div>
+          <h3>In Progress</h3>
+          <p>Your project is currently being worked on.</p>
+        </div>
+
+        <div id="step4" class="step">
+          <div class="dot">◉</div>
+          <h3>Review</h3>
+          <p>Your project is ready for review.</p>
+        </div>
+
+        <div id="step5" class="step">
+          <div class="dot">✓</div>
+          <h3>Completed</h3>
+          <p>Your project has been completed.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="info-grid">
+
+      <div class="info">
+        <div class="info-label">Customer</div>
+        <div id="customer" class="info-value">—</div>
+      </div>
+
+      <div class="info">
+        <div class="info-label">Service</div>
+        <div id="service" class="info-value">—</div>
+      </div>
+
+      <div class="info">
+        <div class="info-label">Budget</div>
+        <div id="budget" class="info-value">—</div>
+      </div>
+
+      <div class="info">
+        <div class="info-label">Delivery</div>
+        <div id="delivery" class="info-value">—</div>
+      </div>
+
+      <div class="info">
+        <div class="info-label">Order Date</div>
+        <div id="date" class="info-value">—</div>
+      </div>
+
+      <div class="info">
+        <div class="info-label">Last Updated</div>
+        <div id="updated" class="info-value">—</div>
+      </div>
+
+    </div>
+
+    <div class="payment">
+      <div class="payment-title">PAYMENT STATUS</div>
+      <div id="payment" class="payment-value">Unpaid</div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  © 2026 <strong>MAYUR SERVICES</strong> • Digital Services
+</footer>
+
+<script>
+
+const input = document.getElementById("orderInput");
+
+input.addEventListener("keydown", function(e){
+  if(e.key === "Enter"){
+    trackOrder();
+  }
+});
+
+function setText(id,value){
+  document.getElementById(id).textContent =
+    value || "—";
+}
+
+function getStep(status){
+
+  const map = {
+    "Pending": 1,
+    "In Progress": 3,
+    "Review": 4,
+    "Completed": 5,
+    "Cancelled": 0
+  };
+
+  return map[status] || 1;
+}
+
+function updateTimeline(status){
+
+  const current = getStep(status);
+
+  for(let i=1;i<=5;i++){
+
+    const step =
+      document.getElementById("step"+i);
+
+    step.classList.remove("active");
+    step.classList.remove("current");
+
+    if(i <= current){
+      step.classList.add("active");
+    }
+
+    if(i === current){
+      step.classList.add("current");
+    }
+  }
+
+  if(status === "Cancelled"){
+
+    for(let i=1;i<=5;i++){
+      document
+        .getElementById("step"+i)
+        .classList.remove("active","current");
+    }
+  }
+}
+
+async function trackOrder(){
+
+  const id =
+    input.value.trim();
+
+  const error =
+    document.getElementById("error");
+
+  const result =
+    document.getElementById("result");
+
+  if(!id){
+
+    error.textContent =
+      "Please enter your Order ID.";
+
+    error.style.display="block";
+    result.style.display="none";
+    return;
+  }
+
+  error.style.display="none";
+  result.style.display="none";
+
+  document.getElementById("loading")
+    .style.display="block";
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/track/" +
+        encodeURIComponent(id)
+      );
+
+    const data =
+      await response.json();
+
+    document.getElementById("loading")
+      .style.display="none";
+
+    if(!data.success){
+
+      error.textContent =
+        "❌ Order not found. Please check your Order ID.";
+
+      error.style.display="block";
+      return;
+    }
+
+    const order = data.order;
+
+    setText("orderId",order.id);
+    setText("customer",order.name);
+    setText("service",order.service);
+    setText("budget",order.budget);
+    setText("delivery",order.delivery);
+    setText("payment",order.paymentStatus || "Unpaid");
+
+    setText(
+      "date",
+      new Date(order.createdAt)
+        .toLocaleString("en-IN")
+    );
+
+    setText(
+      "updated",
+      new Date(order.updatedAt || order.createdAt)
+        .toLocaleString("en-IN")
+    );
+
+    const status =
+      document.getElementById("status");
+
+    status.textContent =
+      order.status || "Pending";
+
+    updateTimeline(
+      order.status || "Pending"
+    );
+
+    result.style.display="block";
+
+    result.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  }catch(err){
+
+    document.getElementById("loading")
+      .style.display="none";
+
+    error.textContent =
+      "⚠️ Server connection failed. Please try again.";
+
+    error.style.display="block";
+  }
+}
+
+/* AUTO TRACK FROM URL */
+
+const params =
+  new URLSearchParams(location.search);
+
+const urlOrder =
+  params.get("id");
+
+if(urlOrder){
+
+  input.value=urlOrder;
+
+  setTimeout(()=>{
+    trackOrder();
+  },400);
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mayur Services — Admin Dashboard</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:
+radial-gradient(circle at 10% 10%,rgba(0,255,200,.10),transparent 25%),
+radial-gradient(circle at 90% 15%,rgba(124,92,255,.14),transparent 28%),
+radial-gradient(circle at 50% 100%,rgba(255,50,150,.08),transparent 35%),
+#050507;
+color:#fff;
+min-height:100vh;
+overflow-x:hidden;
+}
+body:before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+background-image:
+linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+background-size:45px 45px;
+opacity:.5;
+}
+body:after{
+content:"";
+position:fixed;
+width:450px;
+height:450px;
+border-radius:50%;
+background:rgba(0,255,200,.045);
+filter:blur(100px);
+top:15%;
+left:40%;
+pointer-events:none;
+animation:orb 8s ease-in-out infinite alternate;
+}
+@keyframes orb{
+from{transform:translate(-80px,-40px)}
+to{transform:translate(100px,70px)}
+}
+
+/* LOGIN */
+#loginPage{
+min-height:100vh;
+display:grid;
+place-items:center;
+padding:20px;
+position:relative;
+z-index:2;
+}
+.login-card{
+width:min(430px,100%);
+padding:42px 30px;
+border:1px solid rgba(255,255,255,.12);
+border-radius:30px;
+background:rgba(12,12,18,.78);
+backdrop-filter:blur(30px);
+box-shadow:0 35px 100px rgba(0,0,0,.65);
+text-align:center;
+animation:loginIn .7s ease;
+}
+@keyframes loginIn{
+from{opacity:0;transform:translateY(35px) scale(.96)}
+to{opacity:1;transform:none}
+}
+.lock{
+width:82px;
+height:82px;
+margin:0 auto 22px;
+display:grid;
+place-items:center;
+border-radius:25px;
+font-size:38px;
+background:linear-gradient(145deg,rgba(0,255,200,.13),rgba(124,92,255,.13));
+border:1px solid rgba(0,255,200,.25);
+box-shadow:0 0 45px rgba(0,255,200,.12);
+animation:float 3s ease-in-out infinite;
+}
+@keyframes float{
+50%{transform:translateY(-7px)}
+}
+.brand{
+font-size:27px;
+font-weight:1000;
+letter-spacing:3px;
+background:linear-gradient(90deg,#00ffc8,#7c5cff,#ff3cac,#00ffc8);
+background-size:300%;
+-webkit-background-clip:text;
+color:transparent;
+animation:gradient 5s linear infinite;
+}
+@keyframes gradient{to{background-position:300%}}
+.login-sub{
+color:#888;
+font-size:13px;
+margin:10px 0 28px;
+}
+.pin{
+width:100%;
+padding:17px;
+border-radius:16px;
+border:1px solid rgba(255,255,255,.11);
+background:rgba(255,255,255,.05);
+color:#fff;
+outline:none;
+font-size:22px;
+text-align:center;
+letter-spacing:8px;
+}
+.pin:focus{
+border-color:#00ffc8;
+box-shadow:0 0 0 3px rgba(0,255,200,.08);
+}
+.login-btn{
+width:100%;
+margin-top:15px;
+padding:16px;
+border:0;
+border-radius:16px;
+font-weight:1000;
+font-size:15px;
+cursor:pointer;
+background:linear-gradient(90deg,#00ffc8,#6effdf);
+color:#00120e;
+transition:.25s;
+}
+.login-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 15px 40px rgba(0,255,200,.2);
+}
+#error{
+min-height:20px;
+margin-top:15px;
+color:#ff5c8a;
+font-size:13px;
+}
+
+/* DASHBOARD */
+#dashboard{
+display:none;
+position:relative;
+z-index:2;
+padding-bottom:90px;
+}
+.header{
+position:sticky;
+top:0;
+z-index:20;
+padding:16px 4%;
+border-bottom:1px solid rgba(255,255,255,.08);
+background:rgba(5,5,7,.72);
+backdrop-filter:blur(25px);
+}
+.header-inner{
+max-width:1450px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+}
+.logo{
+font-weight:1000;
+font-size:21px;
+letter-spacing:2px;
+background:linear-gradient(90deg,#00ffc8,#7c5cff,#ff3cac);
+-webkit-background-clip:text;
+color:transparent;
+}
+.header-right{
+display:flex;
+align-items:center;
+gap:10px;
+}
+.live{
+display:flex;
+align-items:center;
+gap:7px;
+padding:9px 12px;
+border:1px solid rgba(0,255,200,.16);
+border-radius:12px;
+font-size:11px;
+font-weight:900;
+color:#00ffc8;
+background:rgba(0,255,200,.04);
+}
+.dot{
+width:7px;
+height:7px;
+border-radius:50%;
+background:#00ffc8;
+box-shadow:0 0 12px #00ffc8;
+animation:pulse 1.4s infinite;
+}
+@keyframes pulse{
+50%{opacity:.35;transform:scale(.65)}
+}
+.logout{
+border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.05);
+color:#bbb;
+padding:9px 13px;
+border-radius:11px;
+cursor:pointer;
+font-weight:800;
+font-size:11px;
+}
+.logout:hover{
+background:rgba(255,60,100,.12);
+color:#ff7197;
+}
+
+.container{
+width:min(1450px,94%);
+margin:30px auto;
+}
+.welcome{
+margin-bottom:25px;
+}
+.welcome small{
+color:#777;
+font-size:12px;
+letter-spacing:2px;
+}
+.welcome h1{
+font-size:clamp(27px,4vw,43px);
+margin-top:7px;
+font-weight:1000;
+}
+.welcome h1 span{color:#00ffc8}
+
+/* STATS */
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+margin-bottom:25px;
+}
+.stat{
+position:relative;
+overflow:hidden;
+padding:22px;
+border:1px solid rgba(255,255,255,.09);
+border-radius:22px;
+background:rgba(15,15,20,.72);
+backdrop-filter:blur(18px);
+transition:.3s;
+}
+.stat:hover{
+transform:translateY(-5px);
+border-color:rgba(0,255,200,.25);
+box-shadow:0 20px 50px rgba(0,0,0,.3);
+}
+.stat:after{
+content:"";
+position:absolute;
+width:100px;
+height:100px;
+border-radius:50%;
+right:-45px;
+top:-45px;
+background:rgba(0,255,200,.07);
+filter:blur(15px);
+}
+.stat-icon{
+font-size:23px;
+margin-bottom:15px;
+}
+.stat-label{
+font-size:11px;
+color:#777;
+font-weight:800;
+letter-spacing:1px;
+}
+.stat-value{
+font-size:34px;
+font-weight:1000;
+margin-top:5px;
+}
+
+/* TOOLBAR */
+.toolbar{
+display:flex;
+gap:12px;
+align-items:center;
+margin-bottom:20px;
+}
+.search{
+flex:1;
+padding:15px 17px;
+border-radius:15px;
+border:1px solid rgba(255,255,255,.09);
+background:rgba(255,255,255,.045);
+color:#fff;
+outline:none;
+}
+.search:focus{border-color:#00ffc8}
+.refresh{
+padding:14px 18px;
+border-radius:15px;
+border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.06);
+color:#fff;
+cursor:pointer;
+font-weight:900;
+}
+.refresh:hover{
+background:#00ffc8;
+color:#00110d;
+}
+
+/* ORDERS */
+.orders{
+display:grid;
+gap:15px;
+}
+.order{
+position:relative;
+padding:22px;
+border:1px solid rgba(255,255,255,.08);
+border-radius:22px;
+background:linear-gradient(145deg,rgba(17,17,23,.88),rgba(10,10,14,.72));
+backdrop-filter:blur(20px);
+transition:.3s;
+animation:orderIn .45s ease both;
+}
+@keyframes orderIn{
+from{opacity:0;transform:translateY(15px)}
+to{opacity:1;transform:none}
+}
+.order:hover{
+border-color:rgba(0,255,200,.18);
+box-shadow:0 20px 55px rgba(0,0,0,.35);
+}
+.order-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+margin-bottom:18px;
+}
+.order-id{
+font-size:13px;
+font-weight:1000;
+letter-spacing:1px;
+color:#00ffc8;
+}
+.time{
+font-size:11px;
+color:#666;
+}
+.order-main{
+display:grid;
+grid-template-columns:1.1fr 1.2fr 1fr 1fr;
+gap:18px;
+}
+.info-title{
+font-size:10px;
+color:#666;
+text-transform:uppercase;
+letter-spacing:1px;
+margin-bottom:6px;
+font-weight:900;
+}
+.info-value{
+font-size:14px;
+color:#ddd;
+font-weight:700;
+word-break:break-word;
+}
+.requirement{
+margin-top:18px;
+padding:14px;
+border-radius:14px;
+background:rgba(255,255,255,.035);
+border:1px solid rgba(255,255,255,.05);
+color:#aaa;
+font-size:13px;
+line-height:1.55;
+}
+.controls{
+display:flex;
+align-items:center;
+gap:9px;
+margin-top:18px;
+padding-top:16px;
+border-top:1px solid rgba(255,255,255,.06);
+}
+.status,.payment{
+padding:11px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,.08);
+background:#111118;
+color:#fff;
+outline:none;
+font-size:12px;
+font-weight:800;
+}
+.status{min-width:145px}
+.payment{min-width:145px}
+.update{
+padding:11px 14px;
+border:0;
+border-radius:12px;
+background:#00ffc8;
+color:#00110d;
+font-weight:1000;
+cursor:pointer;
+}
+.whatsapp{
+padding:11px 14px;
+border:0;
+border-radius:12px;
+background:#16a34a;
+color:#fff;
+font-weight:1000;
+cursor:pointer;
+}
+.delete{
+padding:11px 14px;
+border:0;
+border-radius:12px;
+background:rgba(255,55,95,.1);
+border:1px solid rgba(255,55,95,.18);
+color:#ff6488;
+font-weight:900;
+cursor:pointer;
+}
+.update:hover,.whatsapp:hover,.delete:hover{
+transform:translateY(-2px);
+}
+.empty{
+padding:60px 20px;
+text-align:center;
+border:1px dashed rgba(255,255,255,.1);
+border-radius:22px;
+color:#666;
+}
+.empty b{
+display:block;
+font-size:18px;
+color:#aaa;
+margin-bottom:7px;
+}
+
+@media(max-width:1000px){
+.stats{grid-template-columns:1fr 1fr}
+.order-main{grid-template-columns:1fr 1fr}
+}
+@media(max-width:650px){
+.header-inner{align-items:flex-start}
+.logo{font-size:17px}
+.live{display:none}
+.container{width:92%}
+.stats{grid-template-columns:1fr 1fr}
+.stat{padding:17px}
+.stat-value{font-size:27px}
+.toolbar{flex-direction:column}
+.search,.refresh{width:100%}
+.order{padding:17px}
+.order-top{align-items:flex-start}
+.order-main{grid-template-columns:1fr}
+.controls{flex-wrap:wrap}
+.status,.payment{flex:1;min-width:130px}
+.update,.whatsapp,.delete{flex:1}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<section id="loginPage">
+  <div class="login-card">
+    <div class="lock">🔐</div>
+    <div class="brand">MAYUR SERVICES</div>
+    <div class="login-sub">SECURE ADMIN CONTROL CENTER</div>
+
+    <input
+      id="pin"
+      class="pin"
+      type="password"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="••••"
+      autocomplete="off"
+    >
+
+    <button class="login-btn" id="loginBtn" type="button">
+      ENTER DASHBOARD →
+    </button>
+
+    <div id="error"></div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">MAYUR SERVICES / ADMIN</div>
+
+    <div class="header-right">
+      <div class="live">
+        <span class="dot"></span>
+        LIVE SYSTEM
+      </div>
+      <button class="logout" id="logoutBtn">LOGOUT</button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="welcome">
+    <small>CONTROL CENTER</small>
+    <h1>Order <span>Dashboard</span></h1>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-icon">📦</div>
+      <div class="stat-label">TOTAL ORDERS</div>
+      <div class="stat-value" id="total">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">⏳</div>
+      <div class="stat-label">PENDING</div>
+      <div class="stat-value" id="pending">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">⚡</div>
+      <div class="stat-label">IN PROGRESS</div>
+      <div class="stat-value" id="progress">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">✓</div>
+      <div class="stat-label">COMPLETED</div>
+      <div class="stat-value" id="completed">0</div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <input
+      id="search"
+      class="search"
+      type="search"
+      placeholder="Search customer, Order ID, service, phone..."
+    >
+    <button class="refresh" id="refreshBtn">↻ REFRESH</button>
+  </div>
+
+  <div id="orders" class="orders"></div>
+
+</div>
+</section>
+
+<script>
+const ADMIN_PIN = sessionStorage.getItem("mayur_admin_pin") || "";
+let PIN = ADMIN_PIN;
+let allOrders = [];
+let eventSource = null;
+
+const $ = id => document.getElementById(id);
+
+function escapeHtml(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function formatDate(date){
+  if(!date) return "-";
+  try{
+    return new Date(date).toLocaleString("en-IN",{
+      dateStyle:"medium",
+      timeStyle:"short"
+    });
+  }catch{
+    return date;
+  }
+}
+
+async function login(){
+
+  const pin = $("pin").value.trim();
+
+  if(!/^\d{4}$/.test(pin)){
+    $("error").textContent = "Enter the 4 digit Admin PIN.";
+    return;
+  }
+
+  $("loginBtn").textContent = "VERIFYING...";
+
+  try{
+
+    const response = await fetch("/api/orders",{
+      headers:{
+        "x-admin-pin":pin
+      }
+    });
+
+    const data = await response.json();
+
+    if(!response.ok || !data.success){
+      throw new Error(data.message || "Invalid Admin PIN.");
+    }
+
+    PIN = pin;
+    sessionStorage.setItem("mayur_admin_pin",pin);
+
+    $("loginPage").style.display = "none";
+    $("dashboard").style.display = "block";
+
+    renderOrders(data.orders || []);
+    connectRealtime();
+
+  }catch(error){
+
+    $("error").textContent = "❌ " + error.message;
+
+  }finally{
+
+    $("loginBtn").textContent = "ENTER DASHBOARD →";
+
+  }
+}
+
+function logout(){
+  sessionStorage.removeItem("mayur_admin_pin");
+  PIN = "";
+  if(eventSource){
+    eventSource.close();
+    eventSource = null;
+  }
+  location.reload();
+}
+
+function updateStats(orders){
+
+  $("total").textContent = orders.length;
+
+  $("pending").textContent =
+    orders.filter(x => x.status === "Pending").length;
+
+  $("progress").textContent =
+    orders.filter(x => x.status === "In Progress").length;
+
+  $("completed").textContent =
+    orders.filter(x => x.status === "Completed").length;
+}
+
+function renderOrders(orders){
+
+  allOrders = Array.isArray(orders) ? orders : [];
+
+  updateStats(allOrders);
+
+  const box = $("orders");
+
+  if(!allOrders.length){
+    box.innerHTML = `
+      <div class="empty">
+        <b>📭 No Orders Yet</b>
+        New customer orders will appear here automatically.
+      </div>
+    `;
+    return;
+  }
+
+  box.innerHTML = allOrders.map((o,index)=>{
+
+    const wa =
+      "https://wa.me/91" +
+      encodeURIComponent(String(o.phone || "").replace(/\D/g,"")) +
+      "?text=" +
+      encodeURIComponent(
+        "Hello " + (o.name || "") +
+        " 👋\n\nYour Mayur Services order " +
+        o.id +
+        " is currently: " +
+        o.status +
+        "."
+      );
+
+    return `
+      <article class="order" style="animation-delay:${Math.min(index,10)*.04}s">
+
+        <div class="order-top">
+          <div class="order-id">${escapeHtml(o.id)}</div>
+          <div class="time">${escapeHtml(formatDate(o.createdAt))}</div>
+        </div>
+
+        <div class="order-main">
+
+          <div>
+            <div class="info-title">CUSTOMER</div>
+            <div class="info-value">${escapeHtml(o.name)}</div>
+          </div>
+
+          <div>
+            <div class="info-title">SERVICE</div>
+            <div class="info-value">${escapeHtml(o.service)}</div>
+          </div>
+
+          <div>
+            <div class="info-title">WHATSAPP</div>
+            <div class="info-value">${escapeHtml(o.phone)}</div>
+          </div>
+
+          <div>
+            <div class="info-title">LOCATION</div>
+            <div class="info-value">${escapeHtml(o.city || "-")}</div>
+          </div>
+
+          <div>
+            <div class="info-title">EMAIL</div>
+            <div class="info-value">${escapeHtml(o.email || "-")}</div>
+          </div>
+
+          <div>
+            <div class="info-title">BUDGET</div>
+            <div class="info-value">${escapeHtml(o.budget || "Not decided")}</div>
+          </div>
+
+          <div>
+            <div class="info-title">DELIVERY</div>
+            <div class="info-value">${escapeHtml(o.delivery || "Normal")}</div>
+          </div>
+
+          <div>
+            <div class="info-title">UPDATED</div>
+            <div class="info-value">${escapeHtml(formatDate(o.updatedAt))}</div>
+          </div>
+
+        </div>
+
+        <div class="requirement">
+          <b style="color:#ddd">Requirement:</b><br>
+          ${escapeHtml(o.requirement)}
+        </div>
+
+        <div class="controls">
+
+          <select
+            class="status"
+            data-status="${escapeHtml(o.id)}"
+          >
+            ${[
+              "Pending",
+              "In Progress",
+              "Review",
+              "Completed",
+              "Cancelled"
+            ].map(s =>
+              `<option ${o.status===s?"selected":""}>${s}</option>`
+            ).join("")}
+          </select>
+
+          <select
+            class="payment"
+            data-payment="${escapeHtml(o.id)}"
+          >
+            ${[
+              "Unpaid",
+              "Payment Submitted",
+              "Verified"
+            ].map(s =>
+              `<option ${o.paymentStatus===s?"selected":""}>${s}</option>`
+            ).join("")}
+          </select>
+
+          <button class="update" onclick="updateOrder('${escapeHtml(o.id)}')">
+            SAVE
+          </button>
+
+          <a
+            class="whatsapp"
+            href="${wa}"
+            target="_blank"
+            style="text-decoration:none;text-align:center"
+          >
+            WHATSAPP
+          </a>
+
+          <button
+            class="delete"
+            onclick="deleteOrder('${escapeHtml(o.id)}')"
+          >
+            DELETE
+          </button>
+
+        </div>
+
+      </article>
+    `;
+
+  }).join("");
+}
+
+async function loadOrders(){
+
+  try{
+
+    const response = await fetch("/api/orders",{
+      headers:{
+        "x-admin-pin":PIN
+      }
+    });
+
+    if(response.status === 401){
+      logout();
+      return;
+    }
+
+    const data = await response.json();
+
+    if(data.success){
+      renderOrders(data.orders || []);
+    }
+
+  }catch(error){
+    console.error(error);
+  }
+}
+
+async function updateOrder(id){
+
+  const statusEl =
+    document.querySelector(`[data-status="${CSS.escape(id)}"]`);
+
+  const paymentEl =
+    document.querySelector(`[data-payment="${CSS.escape(id)}"]`);
+
+  if(!statusEl || !paymentEl){
+    alert("Order controls not found.");
+    return;
+  }
+
+  try{
+
+    const response = await fetch("/api/orders/"+encodeURIComponent(id),{
+      method:"PATCH",
+      headers:{
+        "Content-Type":"application/json",
+        "x-admin-pin":PIN
+      },
+      body:JSON.stringify({
+        status:statusEl.value,
+        paymentStatus:paymentEl.value
+      })
+    });
+
+    const data = await response.json();
+
+    if(!response.ok || !data.success){
+      throw new Error(data.message || "Update failed.");
+    }
+
+    await loadOrders();
+
+  }catch(error){
+
+    alert(error.message);
+
+  }
+}
+
+async function deleteOrder(id){
+
+  if(!confirm("Delete order "+id+" permanently?")){
+    return;
+  }
+
+  try{
+
+    const response = await fetch(
+      "/api/orders/"+encodeURIComponent(id),
+      {
+        method:"DELETE",
+        headers:{
+          "x-admin-pin":PIN
+        }
+      }
+    );
+
+    const data = await response.json();
+
+    if(!response.ok || !data.success){
+      throw new Error(data.message || "Delete failed.");
+    }
+
+    await loadOrders();
+
+  }catch(error){
+
+    alert(error.message);
+
+  }
+}
+
+function connectRealtime(){
+
+  if(!PIN) return;
+
+  if(eventSource){
+    eventSource.close();
+  }
+
+  eventSource =
+    new EventSource(
+      "/api/admin/events?pin="+encodeURIComponent(PIN)
+    );
+
+  eventSource.onmessage = function(event){
+
+    try{
+
+      const payload = JSON.parse(event.data);
+
+      if(
+        payload.type === "new_order" ||
+        payload.type === "order_updated"
+      ){
+        loadOrders();
+
+        if(payload.type === "new_order"){
+          showNotification(
+            "🔔 NEW ORDER",
+            "New order received: " +
+            (payload.order?.id || "")
+          );
+          playSound();
+        }
+      }
+
+    }catch(error){
+      console.error("Realtime:",error);
+    }
+
+  };
+
+  eventSource.onerror = function(){
+
+    if(eventSource){
+      eventSource.close();
+    }
+
+    setTimeout(function(){
+      if(PIN){
+        connectRealtime();
+      }
+    },3000);
+
+  };
+}
+
+function showNotification(title,message){
+
+  if("Notification" in window &&
+     Notification.permission === "granted"){
+
+    new Notification(title,{
+      body:message
+    });
+
+  }
+
+}
+
+function playSound(){
+
+  try{
+
+    const AudioContext =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+    if(!AudioContext) return;
+
+    const ctx = new AudioContext();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.frequency.value = 880;
+    gain.gain.value = .05;
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start();
+
+    setTimeout(()=>{
+      osc.frequency.value = 1175;
+    },120);
+
+    setTimeout(()=>{
+      osc.stop();
+      ctx.close();
+    },260);
+
+  }catch(error){}
+
+}
+
+$("loginBtn").addEventListener("click",login);
+
+$("pin").addEventListener("keydown",function(e){
+  if(e.key === "Enter"){
+    login();
+  }
+});
+
+$("logoutBtn").addEventListener("click",logout);
+
+$("refreshBtn").addEventListener("click",loadOrders);
+
+$("search").addEventListener("input",function(){
+
+  const q = this.value.toLowerCase().trim();
+
+  if(!q){
+    renderOrders(allOrders);
+    return;
+  }
+
+  const filtered = allOrders.filter(o =>
+    Object.values(o).some(v =>
+      String(v ?? "").toLowerCase().includes(q)
+    )
+  );
+
+  renderOrders(filtered);
+
+});
+
+/* Auto login */
+if(PIN){
+
+  fetch("/api/orders",{
+    headers:{
+      "x-admin-pin":PIN
+    }
+  })
+  .then(r=>r.json())
+  .then(data=>{
+
+    if(data.success){
+
+      $("loginPage").style.display = "none";
+      $("dashboard").style.display = "block";
+
+      renderOrders(data.orders || []);
+      connectRealtime();
+
+    }else{
+      sessionStorage.removeItem("mayur_admin_pin");
+    }
+
+  })
+  .catch(()=>{
+    sessionStorage.removeItem("mayur_admin_pin");
+  });
+
+}
+
+/* Ask notification permission */
+if("Notification" in window &&
+   Notification.permission === "default"){
+
+  setTimeout(()=>{
+    Notification.requestPermission().catch(()=>{});
+  },1200);
+
+}
+
+</script>
+
+</body>
+</html>

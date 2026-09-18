@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAYUR SERVICES — Admin</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#050509;
+color:white;
+min-height:100vh;
+}
+
+body:before{
+content:"";
+position:fixed;
+width:500px;height:500px;
+background:#714cff;
+filter:blur(150px);
+opacity:.13;
+left:-250px;
+top:-200px;
+animation:orb 8s infinite alternate;
+z-index:-1;
+}
+
+@keyframes orb{
+to{transform:translate(250px,180px)}
+}
+
+.login{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.login-box{
+width:100%;
+max-width:430px;
+padding:38px;
+text-align:center;
+border:1px solid rgba(255,255,255,.1);
+border-radius:28px;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(25px);
+box-shadow:0 30px 100px #000;
+animation:loginIn .8s cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes loginIn{
+from{opacity:0;transform:translateY(40px) scale(.93);filter:blur(8px)}
+to{opacity:1;transform:none;filter:none}
+}
+
+.lock{
+font-size:50px;
+animation:lockFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes lockFloat{
+50%{transform:translateY(-8px) rotate(4deg)}
+}
+
+.login-box h1{margin:15px 0 8px}
+.login-box p{color:#777}
+
+input,select{
+width:100%;
+padding:14px;
+margin:8px 0;
+border-radius:13px;
+border:1px solid #292934;
+background:#0b0b11;
+color:white;
+outline:none;
+}
+
+input:focus,select:focus{
+border-color:#765aff;
+box-shadow:0 0 20px rgba(110,80,255,.12);
+}
+
+button{
+padding:13px 18px;
+border:0;
+border-radius:12px;
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+background:linear-gradient(135deg,#704dff,#9b70ff);
+transition:.35s;
+}
+
+button:hover{
+transform:translateY(-3px);
+box-shadow:0 15px 35px rgba(110,70,255,.25);
+}
+
+.login-box button{
+width:100%;
+margin-top:8px;
+}
+
+.dashboard{
+display:none;
+padding:30px 5%;
+animation:dashIn .7s ease;
+}
+
+@keyframes dashIn{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:none}
+}
+
+.head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.head h1{margin:0}
+.head p{color:#777}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-bottom:25px;
+}
+
+.stat{
+padding:23px;
+border-radius:19px;
+border:1px solid #22222d;
+background:rgba(255,255,255,.035);
+transition:.4s;
+animation:statIn .6s ease both;
+}
+
+.stat:nth-child(2){animation-delay:.1s}
+.stat:nth-child(3){animation-delay:.2s}
+.stat:nth-child(4){animation-delay:.3s}
+
+@keyframes statIn{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:none}
+}
+
+.stat:hover{
+transform:translateY(-7px);
+border-color:#7255ff;
+box-shadow:0 18px 40px rgba(0,0,0,.3);
+}
+
+.stat small{color:#777}
+.stat b{
+display:block;
+font-size:32px;
+margin-top:8px;
+}
+
+.toolbar{
+margin-bottom:20px;
+}
+
+.toolbar input{margin:0}
+
+.order{
+padding:23px;
+margin-bottom:16px;
+border-radius:21px;
+border:1px solid #22222d;
+background:linear-gradient(145deg,#0e0e15,#09090e);
+animation:orderIn .55s ease both;
+transition:.35s;
+}
+
+.order:hover{
+transform:translateX(5px);
+border-color:#51418c;
+box-shadow:0 20px 45px rgba(0,0,0,.3);
+}
+
+@keyframes orderIn{
+from{opacity:0;transform:translateY(18px)}
+to{opacity:1;transform:none}
+}
+
+.order-top{
+display:flex;
+justify-content:space-between;
+gap:15px;
+}
+
+.order h3{margin:0 0 10px}
+
+.info{
+color:#999;
+font-size:14px;
+line-height:1.8;
+}
+
+.status{
+max-width:180px;
+margin:12px 0;
+}
+
+.actions{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
+.whatsapp{background:#15894b}
+.delete{background:#8d2929}
+
+.empty{
+text-align:center;
+padding:60px;
+color:#666;
+}
+
+@media(max-width:800px){
+.stats{grid-template-columns:1fr 1fr}
+.head{flex-direction:column;align-items:flex-start;gap:15px}
+}
+
+@media(max-width:500px){
+.dashboard{padding:20px 4%}
+.stats{grid-template-columns:1fr}
+.order-top{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<div id="login" class="login">
+
+<div class="login-box">
+
+<div class="lock">🔐</div>
+
+<h1>MAYUR ADMIN</h1>
+
+<p>Premium Order Management</p>
+
+<input
+id="pin"
+type="password"
+inputmode="numeric"
+placeholder="Enter Admin PIN">
+
+<button onclick="login()">Unlock Dashboard</button>
+
+<div id="error" style="color:#ff7070;margin-top:15px"></div>
+
+</div>
+</div>
+
+<div id="dashboard" class="dashboard">
+
+<div class="head">
+<div>
+<h1>🚀 MAYUR SERVICES</h1>
+<p>Order Management Dashboard</p>
+</div>
+
+<button onclick="logout()">Logout</button>
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<small>Total Orders</small>
+<b id="total">0</b>
+</div>
+
+<div class="stat">
+<small>Pending</small>
+<b id="pending">0</b>
+</div>
+
+<div class="stat">
+<small>In Progress</small>
+<b id="progress">0</b>
+</div>
+
+<div class="stat">
+<small>Completed</small>
+<b id="completed">0</b>
+</div>
+
+</div>
+
+<div class="toolbar">
+<input
+id="search"
+placeholder="🔎 Search orders..."
+oninput="render()">
+</div>
+
+<div id="orders"></div>
+
+</div>
+
+<script>
+
+let PIN=sessionStorage.getItem("mayur_admin_pin")||"";
+let allOrders=[];
+
+async function login(){
+
+const pin=document.getElementById("pin").value;
+
+const r=await fetch("/api/orders",{
+headers:{"x-admin-pin":pin}
+});
+
+const data=await r.json();
+
+if(data.success){
+
+PIN=pin;
+
+sessionStorage.setItem(
+"mayur_admin_pin",
+pin
+);
+
+showDashboard(data.orders);
+
+}else{
+
+document.getElementById("error").textContent=
+"❌ Invalid Admin PIN";
+
+}
+
+}
+
+async function load(){
+
+if(!PIN)return;
+
+const r=await fetch("/api/orders",{
+headers:{"x-admin-pin":PIN}
+});
+
+if(r.status===401){
+logout();
+return;
+}
+
+const data=await r.json();
+
+if(data.success){
+showDashboard(data.orders);
+}
+
+}
+
+function showDashboard(data){
+
+allOrders=data;
+
+document.getElementById("login").style.display="none";
+document.getElementById("dashboard").style.display="block";
+
+render();
+
+}
+
+function render(){
+
+const q=
+document.getElementById("search").value.toLowerCase();
+
+const filtered=allOrders.filter(o=>
+(o.name||"").toLowerCase().includes(q)||
+(o.phone||"").includes(q)||
+(o.service||"").toLowerCase().includes(q)||
+(o.id||"").toLowerCase().includes(q)
+);
+
+document.getElementById("total").textContent=
+allOrders.length;
+
+document.getElementById("pending").textContent=
+allOrders.filter(o=>o.status==="Pending").length;
+
+document.getElementById("progress").textContent=
+allOrders.filter(o=>o.status==="In Progress").length;
+
+document.getElementById("completed").textContent=
+allOrders.filter(o=>o.status==="Completed").length;
+
+const box=document.getElementById("orders");
+
+if(!filtered.length){
+
+box.innerHTML=
+'<div class="empty">✨ No orders found.</div>';
+
+return;
+
+}
+
+box.innerHTML=filtered.map(o=>`
+
+<div class="order">
+
+<div class="order-top">
+
+<div>
+
+<h3>
+${escapeHtml(o.name)}
+— ${escapeHtml(o.service)}
+</h3>
+
+<div class="info">
+🆔 ${escapeHtml(o.id)}<br>
+📱 +91 ${escapeHtml(o.phone)}<br>
+📧 ${escapeHtml(o.email||"Not provided")}<br>
+📍 ${escapeHtml(o.city||"Not provided")}<br>
+💰 ${escapeHtml(o.budget)}
+ · ⚡ ${escapeHtml(o.delivery)}
+</div>
+
+</div>
+
+<div class="info">
+${new Date(o.createdAt).toLocaleString()}
+</div>
+
+</div>
+
+<p class="info">
+📝 ${escapeHtml(o.requirement)}
+</p>
+
+<select
+class="status"
+onchange="changeStatus('${o.id}',this.value)">
+
+<option ${o.status==="Pending"?"selected":""}>
+Pending
+</option>
+
+<option ${o.status==="In Progress"?"selected":""}>
+In Progress
+</option>
+
+<option ${o.status==="Completed"?"selected":""}>
+Completed
+</option>
+
+<option ${o.status==="Cancelled"?"selected":""}>
+Cancelled
+</option>
+
+</select>
+
+<div class="actions">
+
+<button
+class="whatsapp"
+onclick="contact('${o.phone}','${escapeHtml(o.name)}','${o.id}')">
+💬 WhatsApp
+</button>
+
+<button
+class="delete"
+onclick="removeOrder('${o.id}')">
+🗑 Delete
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+async function changeStatus(id,status){
+
+await fetch("/api/orders/"+id,{
+method:"PATCH",
+headers:{
+"Content-Type":"application/json",
+"x-admin-pin":PIN
+},
+body:JSON.stringify({status})
+});
+
+load();
+
+}
+
+async function removeOrder(id){
+
+if(!confirm("Delete this order permanently?"))
+return;
+
+await fetch("/api/orders/"+id,{
+method:"DELETE",
+headers:{"x-admin-pin":PIN}
+});
+
+load();
+
+}
+
+function contact(phone,name,id){
+
+const msg=
+"Hello "+name+" 👋%0A%0A"+
+"This is MAYUR SERVICES regarding your order "+id+".%0A%0A"+
+"Thank you!";
+
+location.href=
+"https://wa.me/91"+phone+
+"?text="+encodeURIComponent(msg);
+
+}
+
+function escapeHtml(str){
+
+return String(str).replace(/[&<>"']/g,m=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+}[m]));
+
+}
+
+function logout(){
+
+sessionStorage.removeItem("mayur_admin_pin");
+PIN="";
+location.reload();
+
+}
+
+if(PIN)load();
+
+</script>
+
+</body>
+</html>

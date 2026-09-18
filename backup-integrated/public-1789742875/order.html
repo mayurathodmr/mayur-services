@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order — MAYUR SERVICES</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#050509;
+color:#fff;
+min-height:100vh;
+padding:35px 15px;
+overflow-x:hidden;
+}
+
+body:before{
+content:"";
+position:fixed;
+width:550px;height:550px;
+left:-250px;top:-200px;
+background:#714cff;
+filter:blur(150px);
+opacity:.18;
+animation:orb 8s infinite alternate;
+z-index:-1;
+}
+
+body:after{
+content:"";
+position:fixed;
+width:500px;height:500px;
+right:-250px;bottom:-220px;
+background:#00c8ff;
+filter:blur(160px);
+opacity:.12;
+animation:orb2 10s infinite alternate;
+z-index:-1;
+}
+
+@keyframes orb{to{transform:translate(220px,160px) scale(1.2)}}
+@keyframes orb2{to{transform:translate(-180px,-130px) scale(1.2)}}
+
+.box{
+max-width:720px;
+margin:auto;
+padding:38px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+border-radius:30px;
+backdrop-filter:blur(25px);
+box-shadow:0 30px 100px rgba(0,0,0,.55);
+animation:pageIn 1s cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes pageIn{
+from{opacity:0;transform:translateY(45px) scale(.94);filter:blur(10px)}
+to{opacity:1;transform:none;filter:none}
+}
+
+.top{text-align:center;margin-bottom:32px}
+.logo{
+font-size:12px;
+letter-spacing:4px;
+color:#a98cff;
+font-weight:bold;
+}
+h1{font-size:40px;margin:12px 0}
+.sub{color:#888;line-height:1.6}
+
+.form{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:17px;
+}
+
+.full{grid-column:1/-1}
+
+label{
+display:block;
+font-size:12px;
+color:#aaa;
+margin-bottom:7px;
+}
+
+input,select,textarea{
+width:100%;
+padding:14px;
+border-radius:13px;
+border:1px solid #292934;
+background:#0b0b11;
+color:#fff;
+outline:none;
+transition:.35s;
+}
+
+input:focus,select:focus,textarea:focus{
+border-color:#8064ff;
+box-shadow:0 0 0 3px rgba(128,100,255,.12),0 0 25px rgba(128,100,255,.08);
+transform:translateY(-2px);
+}
+
+textarea{
+min-height:140px;
+resize:vertical;
+}
+
+.submit{
+width:100%;
+padding:16px;
+border:0;
+border-radius:14px;
+background:linear-gradient(135deg,#704dff,#a170ff);
+color:#fff;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;
+position:relative;
+overflow:hidden;
+transition:.4s;
+}
+
+.submit:hover{
+transform:translateY(-5px);
+box-shadow:0 20px 50px rgba(110,70,255,.3);
+}
+
+.submit:after{
+content:"";
+position:absolute;
+top:0;
+left:-120%;
+width:70%;
+height:100%;
+background:rgba(255,255,255,.22);
+transform:skewX(-20deg);
+transition:.7s;
+}
+
+.submit:hover:after{left:150%}
+
+.success{
+display:none;
+margin-top:20px;
+padding:18px;
+border-radius:15px;
+background:rgba(40,220,130,.08);
+border:1px solid rgba(40,220,130,.3);
+color:#8ff0bb;
+text-align:center;
+animation:success .5s ease;
+}
+
+@keyframes success{
+from{opacity:0;transform:scale(.9)}
+to{opacity:1;transform:scale(1)}
+}
+
+.back{
+display:block;
+text-align:center;
+margin-top:22px;
+color:#777;
+text-decoration:none;
+transition:.3s;
+}
+
+.back:hover{color:#fff;transform:translateY(-2px)}
+
+@media(max-width:600px){
+.box{padding:28px 18px}
+.form{grid-template-columns:1fr}
+.full{grid-column:auto}
+h1{font-size:32px}
+}
+
+
+/* =====================================================
+   PREMIUM ORDER SUCCESS POPUP
+   ===================================================== */
+
+.modal{
+position:fixed;
+inset:0;
+z-index:9999;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.modal.active{
+display:flex;
+}
+
+.modal-overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.72);
+backdrop-filter:blur(14px);
+animation:overlayIn .35s ease;
+}
+
+@keyframes overlayIn{
+from{opacity:0}
+to{opacity:1}
+}
+
+.success-card{
+position:relative;
+z-index:2;
+width:100%;
+max-width:470px;
+padding:38px 28px 28px;
+border-radius:30px;
+border:1px solid rgba(255,255,255,.13);
+background:
+linear-gradient(
+145deg,
+rgba(27,23,45,.97),
+rgba(8,8,14,.98)
+);
+box-shadow:
+0 35px 120px rgba(0,0,0,.7),
+0 0 70px rgba(115,75,255,.16);
+text-align:center;
+animation:successPopup .65s cubic-bezier(.16,1,.3,1);
+overflow:hidden;
+}
+
+.success-card:before{
+content:"";
+position:absolute;
+width:250px;
+height:150px;
+top:-100px;
+left:50%;
+transform:translateX(-50%);
+background:#7655ff;
+filter:blur(70px);
+opacity:.22;
+pointer-events:none;
+}
+
+@keyframes successPopup{
+0%{
+opacity:0;
+transform:translateY(35px) scale(.82) rotateX(8deg);
+filter:blur(8px);
+}
+60%{
+transform:translateY(-5px) scale(1.02);
+}
+100%{
+opacity:1;
+transform:none;
+filter:none;
+}
+}
+
+.modal-close{
+position:absolute;
+right:16px;
+top:14px;
+width:36px;
+height:36px;
+padding:0;
+border-radius:50%;
+border:1px solid rgba(255,255,255,.1);
+background:rgba(255,255,255,.05);
+color:#aaa;
+font-size:25px;
+line-height:30px;
+cursor:pointer;
+transition:.3s;
+}
+
+.modal-close:hover{
+color:white;
+background:rgba(255,70,90,.15);
+transform:rotate(90deg) scale(1.08);
+}
+
+.success-circle{
+position:relative;
+width:82px;
+height:82px;
+margin:5px auto 18px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(53,220,135,.08);
+border:1px solid rgba(53,220,135,.35);
+box-shadow:
+0 0 0 8px rgba(53,220,135,.035),
+0 0 45px rgba(53,220,135,.15);
+animation:circlePop .7s .15s cubic-bezier(.16,1,.3,1) both;
+}
+
+.success-circle:before{
+content:"";
+position:absolute;
+inset:-8px;
+border-radius:50%;
+border:1px solid rgba(53,220,135,.2);
+animation:ring 2s ease-out infinite;
+}
+
+@keyframes circlePop{
+from{
+opacity:0;
+transform:scale(.3);
+}
+to{
+opacity:1;
+transform:scale(1);
+}
+}
+
+@keyframes ring{
+0%{
+transform:scale(.8);
+opacity:.8;
+}
+100%{
+transform:scale(1.45);
+opacity:0;
+}
+}
+
+.success-circle span{
+font-size:42px;
+font-weight:900;
+color:#71efaa;
+animation:check .5s .45s ease both;
+}
+
+@keyframes check{
+from{
+opacity:0;
+transform:scale(.4) rotate(-30deg);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
+
+.success-badge{
+display:inline-block;
+padding:7px 13px;
+border-radius:30px;
+font-size:10px;
+letter-spacing:3px;
+font-weight:bold;
+color:#aaffca;
+background:rgba(50,210,125,.08);
+border:1px solid rgba(50,210,125,.2);
+margin-bottom:12px;
+}
+
+.success-card h2{
+font-size:30px;
+margin:0 0 10px;
+}
+
+.success-text{
+color:#888;
+font-size:14px;
+line-height:1.65;
+max-width:380px;
+margin:0 auto 22px;
+}
+
+.order-id-box{
+display:flex;
+align-items:center;
+gap:10px;
+padding:13px;
+margin-bottom:15px;
+border-radius:15px;
+background:#08080e;
+border:1px solid #252533;
+}
+
+.order-id-box span{
+font-size:9px;
+letter-spacing:2px;
+color:#666;
+}
+
+.order-id-box strong{
+flex:1;
+font-family:monospace;
+font-size:14px;
+color:#bba8ff;
+}
+
+.order-id-box button{
+padding:7px 10px;
+border-radius:8px;
+font-size:11px;
+background:#171522;
+border:1px solid #302852;
+color:#bcaaff;
+cursor:pointer;
+}
+
+.order-id-box button:hover{
+transform:translateY(-2px);
+}
+
+.next-box{
+text-align:left;
+padding:15px;
+border-radius:15px;
+background:rgba(255,255,255,.025);
+border:1px solid rgba(255,255,255,.06);
+margin-bottom:20px;
+}
+
+.next-box div{
+font-size:12px;
+color:#999;
+padding:5px 0;
+}
+
+.next-box div:first-child{
+color:#8feeb6;
+}
+
+.popup-actions{
+display:flex;
+gap:10px;
+}
+
+.wa-btn,
+.close-btn{
+flex:1;
+padding:14px 10px;
+border-radius:13px;
+border:0;
+font-weight:bold;
+cursor:pointer;
+transition:.35s;
+}
+
+.wa-btn{
+background:linear-gradient(135deg,#168b4d,#20b967);
+color:white;
+box-shadow:0 10px 30px rgba(20,150,80,.16);
+}
+
+.wa-btn:hover{
+transform:translateY(-4px);
+box-shadow:0 16px 38px rgba(20,180,90,.25);
+}
+
+.close-btn{
+background:#15151d;
+border:1px solid #2b2b36;
+color:#bbb;
+}
+
+.close-btn:hover{
+color:white;
+transform:translateY(-3px);
+}
+
+.copy-msg{
+height:17px;
+font-size:11px;
+color:#78e8a7;
+margin-top:10px;
+}
+
+body.modal-open{
+overflow:hidden;
+}
+
+@media(max-width:500px){
+
+.modal{
+padding:14px;
+}
+
+.success-card{
+padding:34px 18px 20px;
+border-radius:25px;
+}
+
+.success-card h2{
+font-size:26px;
+}
+
+.popup-actions{
+flex-direction:column;
+}
+
+.order-id-box{
+gap:7px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<div class="top">
+<div class="logo">✦ MAYUR SERVICES</div>
+<h1>Start Your Project</h1>
+<div class="sub">
+Fill the details below and tell us exactly what you need.
+</div>
+</div>
+
+<form id="orderForm">
+
+<div class="form">
+
+<div>
+<label>Full Name *</label>
+<input id="name" required placeholder="Enter your name">
+</div>
+
+<div>
+<label>WhatsApp Number *</label>
+<input id="phone" required maxlength="10" inputmode="numeric" placeholder="10-digit number">
+</div>
+
+<div>
+<label>Email Address</label>
+<input id="email" type="email" placeholder="you@example.com">
+</div>
+
+<div>
+<label>City / Location</label>
+<input id="city" placeholder="Your city">
+</div>
+
+<div>
+<label>Service *</label>
+<select id="service" required>
+<option value="">Choose a service</option>
+<option>Website Design</option>
+<option>Resume / CV</option>
+<option>Poster Design</option>
+<option>Instagram Post</option>
+<option>Photo Editing</option>
+</select>
+</div>
+
+<div>
+<label>Budget</label>
+<select id="budget">
+<option>Not decided</option>
+<option>₹99 - ₹199</option>
+<option>₹200 - ₹499</option>
+<option>₹500 - ₹999</option>
+<option>₹1000+</option>
+</select>
+</div>
+
+<div>
+<label>Delivery</label>
+<select id="delivery">
+<option>Normal</option>
+<option>Urgent</option>
+</select>
+</div>
+
+<div class="full">
+<label>Requirement *</label>
+<textarea id="requirement" required placeholder="Describe your project..."></textarea>
+</div>
+
+<div class="full">
+<button class="submit" type="submit">
+🚀 Submit Order & Continue
+</button>
+</div>
+
+</div>
+</form>
+
+<!-- PREMIUM SUCCESS POPUP -->
+<div id="successModal" class="modal">
+  <div class="modal-overlay" onclick="closeSuccess()"></div>
+
+  <div class="success-card">
+
+    <button class="modal-close" onclick="closeSuccess()">×</button>
+
+    <div class="success-circle">
+      <span>✓</span>
+    </div>
+
+    <div class="success-badge">ORDER RECEIVED</div>
+
+    <h2>You're All Set! 🎉</h2>
+
+    <p class="success-text">
+      Your project request has been successfully received.
+      We'll contact you shortly on WhatsApp.
+    </p>
+
+    <div class="order-id-box">
+      <span>ORDER ID</span>
+      <strong id="popupOrderId">ORD-00000000</strong>
+      <button onclick="copyOrderId()">Copy</button>
+    </div>
+
+    <div class="next-box">
+      <div>✓ Your order is saved</div>
+      <div>✓ WhatsApp confirmation is ready</div>
+      <div>✓ Keep your Order ID for reference</div>
+    </div>
+
+    <div class="popup-actions">
+
+      <button id="whatsappBtn" class="wa-btn">
+        💬 Continue on WhatsApp
+      </button>
+
+      <button class="close-btn" onclick="closeSuccess()">
+        Done
+      </button>
+
+    </div>
+
+    <div id="copyMsg" class="copy-msg"></div>
+
+  </div>
+</div>
+
+<a class="back" href="/">← Back to website</a>
+<script>
+
+/* ===== PREMIUM SUCCESS POPUP ===== */
+
+let finalWhatsAppUrl="";
+
+function showSuccessPopup(orderId,whatsappUrl){
+
+document.getElementById("popupOrderId").textContent=orderId;
+
+finalWhatsAppUrl=whatsappUrl;
+
+document.getElementById("successModal").classList.add("active");
+
+document.body.classList.add("modal-open");
+
+}
+
+function closeSuccess(){
+
+document.getElementById("successModal").classList.remove("active");
+
+document.body.classList.remove("modal-open");
+
+}
+
+function copyOrderId(){
+
+const id=document.getElementById("popupOrderId").textContent;
+
+navigator.clipboard.writeText(id).then(()=>{
+
+document.getElementById("copyMsg").textContent=
+"✓ Order ID copied";
+
+setTimeout(()=>{
+document.getElementById("copyMsg").textContent="";
+},1800);
+
+});
+
+}
+
+document.getElementById("whatsappBtn").addEventListener("click",()=>{
+
+if(finalWhatsAppUrl){
+window.location.href=finalWhatsAppUrl;
+}
+
+});
+
+/* ESC KEY */
+
+document.addEventListener("keydown",e=>{
+
+if(e.key==="Escape"){
+closeSuccess();
+}
+
+});
+
+</script>
+
+</div>
+
+<script>
+
+const params=new URLSearchParams(location.search);
+const selected=params.get("service");
+
+if(selected){
+document.getElementById("service").value=selected;
+}
+
+document.getElementById("orderForm").addEventListener("submit",async e=>{
+
+e.preventDefault();
+
+const name=document.getElementById("name").value.trim();
+const phone=document.getElementById("phone").value.trim();
+const email=document.getElementById("email").value.trim();
+const city=document.getElementById("city").value.trim();
+const service=document.getElementById("service").value;
+const budget=document.getElementById("budget").value;
+const delivery=document.getElementById("delivery").value;
+const requirement=document.getElementById("requirement").value.trim();
+
+if(!name||!phone||!service||!requirement){
+alert("Please fill all required fields.");
+return;
+}
+
+if(!/^[0-9]{10}$/.test(phone)){
+alert("Please enter a valid 10-digit WhatsApp number.");
+return;
+}
+
+const btn=document.querySelector(".submit");
+btn.disabled=true;
+btn.textContent="⏳ Creating Order...";
+
+try{
+
+const response=await fetch("/api/orders",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+name,phone,email,city,service,budget,delivery,requirement
+})
+});
+
+const data=await response.json();
+
+if(!data.success){
+throw new Error(data.message||"Order failed");
+}
+
+document.getElementById("success").style.display="block";
+btn.textContent="✓ Order Created";
+
+const message=
+"🚀 *NEW ORDER - MAYUR SERVICES*%0A%0A"+
+"🆔 Order ID: "+data.order.id+"%0A"+
+"👤 Name: "+name+"%0A"+
+"📱 WhatsApp: +91 "+phone+"%0A"+
+"📧 Email: "+(email||"Not provided")+"%0A"+
+"📍 City: "+(city||"Not provided")+"%0A"+
+"🛠️ Service: "+service+"%0A"+
+"💰 Budget: "+budget+"%0A"+
+"⚡ Delivery: "+delivery+"%0A%0A"+
+"📝 Requirement:%0A"+requirement;
+
+const whatsappUrl=
+"https://wa.me/919370155844?text="+
+encodeURIComponent(message);
+
+showSuccessPopup(
+data.order.id,
+whatsappUrl
+);
+
+/* Auto-open WhatsApp after popup animation */
+setTimeout(()=>{
+window.location.href=whatsappUrl;
+},2200);
+
+}catch(err){
+
+btn.disabled=false;
+btn.textContent="🚀 Submit Order & Continue";
+alert(err.message||"Server error.");
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
