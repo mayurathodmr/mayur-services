@@ -320,50 +320,7 @@ transition:.35s ease;
 transform:scale(1.08) rotate(2deg);
 filter:drop-shadow(0 0 25px rgba(0,230,255,.7));
 }
-</style>
-<style id="mayur-service-branding">
-.mayur-logo-img{
-width:48px!important;
-height:48px!important;
-object-fit:contain!important;
-display:block!important;
-filter:drop-shadow(0 0 14px rgba(0,220,255,.45));
-transition:.35s ease;
-}
-.mayur-logo-img:hover{
-transform:scale(1.08);
-filter:drop-shadow(0 0 25px rgba(0,220,255,.8));
-}
-.mayur-service-icon{
-width:52px!important;
-height:52px!important;
-border-radius:16px!important;
-display:grid!important;
-place-items:center!important;
-margin-bottom:14px!important;
-color:#fff!important;
-background:linear-gradient(135deg,rgba(0,220,255,.18),rgba(120,70,255,.18))!important;
-border:1px solid rgba(255,255,255,.14)!important;
-box-shadow:0 10px 30px rgba(0,0,0,.25),0 0 20px rgba(0,220,255,.12)!important;
-transition:.35s ease!important;
-}
-.mayur-service-icon svg{
-width:27px!important;
-height:27px!important;
-}
-.mayur-service-icon:hover{
-transform:translateY(-5px) scale(1.08)!important;
-box-shadow:0 15px 40px rgba(0,0,0,.35),0 0 30px rgba(0,220,255,.3)!important;
-}
-.mayur-service-mini{
-font-size:9px!important;
-letter-spacing:.14em!important;
-opacity:.55!important;
-margin-top:10px!important;
-font-weight:800!important;
-}
-</style>
-</head>
+</style></head>
 
 <body>
 <div class="grid"></div>
@@ -653,67 +610,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   const el=document.querySelector(a.getAttribute("href"));
   if(el){e.preventDefault();el.scrollIntoView({behavior:"smooth"})}
  });
-});
-</script>
-
-<script id="mayur-service-branding-js">
-document.addEventListener("DOMContentLoaded",function(){
-
-const icons={
-website:"web",
-resume:"resume",
-cv:"resume",
-poster:"poster",
-instagram:"instagram",
-photo:"photo",
-editing:"photo",
-"mobile application":"app",
-"mobile app":"app",
-practice:"academic",
-notes:"notes",
-detention:"work",
-writing:"work",
-other:"other"
-};
-
-const cards=document.querySelectorAll(
-".service-card,.service,.service-item,[class*='service']"
-);
-
-cards.forEach(function(card){
-
-if(card.querySelector(".mayur-service-icon")) return;
-
-const text=(card.innerText||"").toLowerCase();
-
-let iconName=null;
-
-for(const key in icons){
-if(text.includes(key)){
-iconName=icons[key];
-break;
-}
-}
-
-if(!iconName) return;
-
-const icon=document.createElement("div");
-icon.className="mayur-service-icon";
-
-icon.innerHTML=
-'<svg viewBox="0 0 24 24">'+
-'<use href="/service-icons/services.svg#'+iconName+'"></use>'+
-'</svg>';
-
-card.insertBefore(icon,card.firstChild);
-
-const mini=document.createElement("div");
-mini.className="mayur-service-mini";
-mini.textContent="MAYUR SERVICES • PREMIUM";
-card.appendChild(mini);
-
-});
-
 });
 </script>
 </body>
